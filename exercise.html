@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivicPulse — Community Event Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- ==============================
+       INTERNAL CSS
+  ============================== -->
+  <style>
+    :root {
+      --ink:       #0f0f0f;
+      --cream:     #f7f3ec;
+      --gold:      #c8952a;
+      --gold-lt:   #f0d080;
+      --moss:      #3b5e3a;
+      --rust:      #c0392b;
+      --sky:       #1a3a5c;
+      --sky-lt:    #e8f0f9;
+      --border:    #d4c9b5;
+      --radius:    10px;
+      --shadow:    0 4px 24px rgba(0,0,0,.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--sky);
+      color: #fff;
+      padding: 56px 40px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent 0 18px,
+        rgba(255,255,255,.03) 18px 19px
+      );
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 900;
+      letter-spacing: -.5px;
+      position: relative;
+    }
+    .hero h1 span { color: var(--gold-lt); }
+    .hero p {
+      margin-top: 10px;
+      opacity: .8;
+      font-size: 1.05rem;
+      position: relative;
+    }
+
+    /* ── NAVIGATION ── */
+    /* Navigation section */
+    nav {
+      background: var(--ink);
+      position: sticky; top: 0; z-index: 100;
+      display: flex; gap: 0; align-items: stretch;
+      overflow-x: auto;
+    }
+    nav a {
+      color: #ddd;
+      text-decoration: none;
+      padding: 14px 22px;
+      font-size: .88rem;
+      font-weight: 500;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    nav a:hover { background: var(--gold); color: #fff; }
+    nav a.ext { color: var(--gold-lt); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+    section:last-child { border: none; }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      color: var(--sky);
+      margin-bottom: 6px;
+    }
+    .label {
+      display: inline-block;
+      background: var(--sky);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    .label.green { background: var(--moss); }
+    .label.gold  { background: var(--gold); }
+
+    /* ── EX 3 — WELCOME BANNER ── */
+    /* Welcome Banner */
+    #welcomeBanner {
+      background: #1a3a5c;
+      color: #fff;
+      padding: 28px 32px;
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    #welcomeBanner::after {
+      content: '🏙';
+      position: absolute; right: 28px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 3.5rem; opacity: .18;
+    }
+    #welcomeBanner h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; margin-bottom: 6px;
+    }
+    .highlight { background: var(--gold-lt); color: var(--ink); padding: 1px 5px; border-radius: 3px; font-weight: 600; }
+
+    /* ── EX 4 — IMAGE GALLERY TABLE ── */
+    .gallery-table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+    .gallery-table td { padding: 10px; text-align: center; vertical-align: top; }
+    .gallery-table caption {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--sky);
+      padding-bottom: 10px;
+      text-align: left;
+    }
+    .evt-img {
+      width: 100%; max-width: 260px;
+      height: 160px; object-fit: cover;
+      border: 3px solid var(--border);
+      border-radius: 8px;
+      display: block; margin: 0 auto;
+      transition: transform .25s, border-color .25s;
+      cursor: zoom-in;
+    }
+    .evt-img:hover, .evt-img.zoomed {
+      transform: scale(1.08);
+      border-color: var(--gold);
+    }
+    .img-caption { font-size: .82rem; color: #555; margin-top: 6px; }
+
+    /* ── EX 5 — REGISTRATION FORM ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media(max-width:600px){ .form-grid { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group.full { grid-column: 1/-1; }
+    label { font-size: .85rem; font-weight: 600; color: var(--sky); }
+    input, select, textarea {
+      padding: 10px 14px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit; font-size: .95rem;
+      background: #fff;
+      transition: border-color .2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--sky); }
+    input.error { border-color: var(--rust); }
+    textarea { resize: vertical; min-height: 100px; }
+    .char-count { font-size: .78rem; color: #888; text-align: right; margin-top: 3px; }
+    .btn {
+      display: inline-block;
+      padding: 13px 32px;
+      background: var(--sky);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit; font-size: 1rem; font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    .btn:hover { background: var(--gold); }
+    .btn:active { transform: scale(.97); }
+    .btn.clear { background: #888; margin-left: 12px; }
+    .btn.clear:hover { background: var(--rust); }
+    output {
+      display: block;
+      margin-top: 16px;
+      padding: 14px 18px;
+      background: #e6f4ea;
+      border-left: 4px solid var(--moss);
+      border-radius: var(--radius);
+      font-weight: 500;
+      color: var(--moss);
+    }
+    output:empty { display: none; }
+
+    /* ── EX 6 — EVENT FEEDBACK ── */
+    .fee-display {
+      display: inline-block;
+      background: var(--gold-lt);
+      color: var(--ink);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-top: 8px;
+      font-size: .95rem;
+    }
+    #phoneField.error { border-color: var(--rust); }
+    .phone-msg { font-size: .82rem; color: var(--rust); margin-top: 4px; min-height: 18px; }
+
+    /* ── EX 7 — VIDEO ── */
+    .video-wrap {
+      background: #000;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 16/9;
+      max-width: 660px;
+    }
+    .video-wrap video { width: 100%; height: 100%; display: block; }
+    #videoMsg {
+      margin-top: 10px;
+      padding: 10px 16px;
+      background: var(--sky-lt);
+      border-radius: var(--radius);
+      font-size: .9rem;
+      color: var(--sky);
+      font-weight: 500;
+      display: none;
+    }
+
+    /* ── EX 8 — PREFERENCES ── */
+    .pref-box {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      max-width: 400px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .pref-saved { font-size: .85rem; color: var(--moss); font-weight: 600; display: none; }
+
+    /* ── EX 9 — GEOLOCATION ── */
+    #geoResult {
+      margin-top: 14px;
+      padding: 16px 20px;
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: .92rem;
+      display: none;
+    }
+    #geoResult strong { color: var(--sky); }
+
+    /* ── EX 10 — DEVTOOLS NOTE ── */
+    .devtools-note {
+      background: var(--ink);
+      color: #a9ffa9;
+      font-family: 'Courier New', monospace;
+      font-size: .85rem;
+      padding: 22px 24px;
+      border-radius: var(--radius);
+      line-height: 1.9;
+    }
+    .devtools-note .cmd { color: var(--gold-lt); }
+
+    /* ── FOOTER ── */
+    /* Footer section */
+    footer {
+      background: var(--ink);
+      color: #aaa;
+      text-align: center;
+      padding: 28px 24px;
+      font-size: .85rem;
+    }
+    footer a { color: var(--gold-lt); text-decoration: none; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ╔══════════════════════════════════╗
+       ║   HERO HEADER                    ║
+       ╚══════════════════════════════════╝ -->
+  <div class="hero">
+    <div class="container">
+      <h1>Civic<span>Pulse</span></h1>
+      <p>Your local community event portal — register, explore &amp; connect.</p>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════╗
+       ║   NAVIGATION                     ║
+       ╚══════════════════════════════════╝ -->
+  <nav id="topNav">
+    <a href="#home">Home</a>
+    <a href="#events">Events</a>
+    <a href="#register">Register</a>
+    <a href="#feedback">Feedback</a>
+    <a href="#video">Video</a>
+    <a href="#preferences">Preferences</a>
+    <a href="#location">Location</a>
+    <a href="#devtools">DevTools</a>
+    <a href="#contact">Contact</a>
+    <a href="help.html" target="_blank" class="ext">Help ↗</a>
+  </nav>
+
+  <!-- ╔══════════════════════════════════╗
+       ║   MAIN CONTENT                   ║
+       ╚══════════════════════════════════╝ -->
+  <main>
+    <div class="container">
+
+      <!-- ══ Exercise 1 + 3 — HOME / WELCOME ══ -->
+      <section id="home">
+        <span class="label">Exercise 1 &amp; 3</span>
+        <h2>Welcome to CivicPulse</h2>
+
+        <!-- Welcome Banner (Ex 3) -->
+        <div id="welcomeBanner">
+          <h3>Hello, <span class="highlight">Resident</span>! 👋</h3>
+          <p>You have <span style="color:#ffd700; font-weight:bold;">3 upcoming events</span> near you.</p>
+          <p>
+            Special Offer:
+            <span style="color:red; font-weight:bold; font-style:italic;">Free entry for first-timers this weekend!</span>
+          </p>
+        </div>
+
+        <p>This portal helps you discover local events, register, share feedback, and find nearby activities — all in one place.</p>
+      </section>
+
+      <!-- ══ Exercise 2 — EVENTS (navigation target) ══ -->
+      <section id="events">
+        <span class="label green">Exercise 2 &amp; 4</span>
+        <h2>Community Events</h2>
+        <p>Browse upcoming events and <a href="#register">register below</a>. Need help? Visit our <a href="help.html" target="_blank">help page</a>.</p>
+
+        <!-- Image Gallery Table (Ex 4) -->
+        <table class="gallery-table">
+          <caption>📸 Past Event Highlights</caption>
+          <tbody>
+            <tr>
+              <td>
+                <img
+                  src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400&h=250&fit=crop"
+                  alt="City Music Festival crowd enjoying live performance"
+                  title="City Music Festival — June 2024"
+                  class="evt-img"
+                  ondblclick="toggleZoom(this)"
+                >
+                <div class="img-caption">🎵 City Music Festival</div>
+              </td>
+              <td>
+                <img
+                  src="https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?w=400&h=250&fit=crop"
+                  alt="Community farmers market with fresh produce stalls"
+                  title="Farmers Market — July 2024"
+                  class="evt-img"
+                  ondblclick="toggleZoom(this)"
+                >
+                <div class="img-caption">🥦 Farmers Market</div>
+              </td>
+              <td>
+                <img
+                  src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=400&h=250&fit=crop"
+                  alt="Children painting at the community art workshop"
+                  title="Art Workshop — August 2024"
+                  class="evt-img"
+                  ondblclick="toggleZoom(this)"
+                >
+                <div class="img-caption">🎨 Art Workshop</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img
+                  src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop"
+                  alt="Residents participating in community 5K run"
+                  title="5K Charity Run — September 2024"
+                  class="evt-img"
+                  ondblclick="toggleZoom(this)"
+                >
+                <div class="img-caption">🏃 Charity 5K Run</div>
+              </td>
+              <td>
+                <img
+                  src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=250&fit=crop"
+                  alt="Evening food festival with lanterns and stalls"
+                  title="Food Festival — October 2024"
+                  class="evt-img"
+                  ondblclick="toggleZoom(this)"
+                >
+                <div class="img-caption">🍜 Food Festival</div>
+              </td>
+              <td>
+                <img
+                  src="https://images.unsplash.com/photo-1519671282429-b44660ead0a7?w=400&h=250&fit=crop"
+                  alt="Volunteers planting trees on environment day"
+                  title="Tree Plantation Drive — November 2024"
+                  class="evt-img"
+                  ondblclick="toggleZoom(this)"
+                >
+                <div class="img-caption">🌳 Tree Plantation</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:.8rem;color:#888;margin-top:10px;">💡 <em>Double-click any image to zoom in/out.</em></p>
+      </section>
+
+      <!-- ══ Exercise 5 — REGISTRATION FORM ══ -->
+      <section id="register">
+        <span class="label gold">Exercise 5</span>
+        <h2>Event Registration</h2>
+        <p>Fill in the form below to secure your spot.</p>
+
+        <form id="regForm" novalidate onsubmit="submitForm(event)" style="margin-top:24px;">
+          <div class="form-grid">
+            <!-- Name -->
+            <div class="form-group">
+              <label for="fullName">Full Name *</label>
+              <input type="text" id="fullName" name="fullName"
+                     placeholder="e.g. Priya Sharma"
+                     required autofocus>
+            </div>
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email"
+                     placeholder="you@example.com"
+                     required>
+            </div>
+            <!-- Date -->
+            <div class="form-group">
+              <label for="eventDate">Preferred Date *</label>
+              <input type="date" id="eventDate" name="eventDate" required>
+            </div>
+            <!-- Event Type Select -->
+            <div class="form-group">
+              <label for="eventType">Event Type *</label>
+              <select id="eventType" name="eventType" required onchange="updateFeeFromReg(this.value)">
+                <option value="">— Select an event —</option>
+                <option value="music">🎵 Music Festival (Free)</option>
+                <option value="market">🥦 Farmers Market (Free)</option>
+                <option value="art">🎨 Art Workshop (₹200)</option>
+                <option value="run">🏃 Charity 5K Run (₹500)</option>
+                <option value="food">🍜 Food Festival (₹350)</option>
+                <option value="tree">🌳 Tree Plantation (Free)</option>
+              </select>
+            </div>
+            <!-- Message -->
+            <div class="form-group full">
+              <label for="message">Message / Special Requirements</label>
+              <textarea id="message" name="message"
+                        placeholder="Any dietary requirements, accessibility needs, etc."
+                        rows="4"></textarea>
+            </div>
+          </div>
+
+          <div style="margin-top:24px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <button type="submit" class="btn" onclick="handleSubmitClick()">Register Now</button>
+            <button type="reset" class="btn clear">Reset</button>
+          </div>
+
+          <!-- Output element (Ex 5) -->
+          <output id="formOutput" for="fullName email eventDate eventType"></output>
+        </form>
+      </section>
+
+      <!-- ══ Exercise 6 — EVENT FEEDBACK ══ -->
+      <section id="feedback">
+        <span class="label">Exercise 6</span>
+        <h2>Event Feedback</h2>
+        <p>Share your experience. Your input helps us improve every event.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px;">
+
+          <!-- Phone validation (onblur) -->
+          <div class="form-group">
+            <label for="phoneField">Phone Number</label>
+            <input type="tel" id="phoneField" name="phone"
+                   placeholder="+91 98765 43210"
+                   onblur="validatePhone(this)">
+            <div class="phone-msg" id="phoneMsg"></div>
+          </div>
+
+          <!-- Event dropdown + fee display (onchange) -->
+          <div class="form-group">
+            <label for="feedbackEvent">Select Event</label>
+            <select id="feedbackEvent" onchange="showEventFee(this.value)">
+              <option value="">— Pick an event —</option>
+              <option value="music">🎵 Music Festival</option>
+              <option value="market">🥦 Farmers Market</option>
+              <option value="art">🎨 Art Workshop</option>
+              <option value="run">🏃 Charity 5K Run</option>
+              <option value="food">🍜 Food Festival</option>
+              <option value="tree">🌳 Tree Plantation</option>
+            </select>
+            <div class="fee-display" id="feeDisplay" style="display:none;"></div>
+          </div>
+
+          <!-- Feedback textarea with char counter (key events) -->
+          <div class="form-group" style="grid-column:1/-1;">
+            <label for="feedbackText">Your Feedback</label>
+            <textarea id="feedbackText" placeholder="Tell us what you thought..."
+                      onkeyup="countChars(this)" onkeydown="countChars(this)"
+                      maxlength="300"></textarea>
+            <div class="char-count" id="charCount">0 / 300 characters</div>
+          </div>
+        </div>
+
+        <!-- Submit button (onclick) -->
+        <button class="btn" style="margin-top:16px;"
+                onclick="submitFeedback()">Submit Feedback</button>
+        <div id="feedbackConfirm" style="display:none; margin-top:14px;
+             padding:12px 18px; background:#e6f4ea; border-left:4px solid #3b5e3a;
+             border-radius:10px; font-weight:500; color:#3b5e3a;"></div>
+      </section>
+
+      <!-- ══ Exercise 7 — VIDEO ══ -->
+      <section id="video">
+        <span class="label green">Exercise 7</span>
+        <h2>Event Promo Video</h2>
+        <p>Watch our short community highlights reel before you leave.</p>
+
+        <div class="video-wrap" style="margin-top:20px;">
+          <video id="promoVideo" controls
+                 oncanplay="videoReady()"
+                 poster="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=660&h=370&fit=crop">
+            <!-- Using a freely available sample video -->
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            <source src="https://www.w3schools.com/html/movie.ogg"   type="video/ogg">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div id="videoMsg">✅ Video is ready to play!</div>
+      </section>
+
+      <!-- ══ Exercise 8 — PREFERENCES ══ -->
+      <section id="preferences">
+        <span class="label gold">Exercise 8</span>
+        <h2>Your Preferences</h2>
+        <p>We save your favourite event type so you never have to choose again.</p>
+
+        <div class="pref-box" style="margin-top:20px;">
+          <div class="form-group">
+            <label for="prefEvent">Preferred Event Type</label>
+            <select id="prefEvent">
+              <option value="">— Choose one —</option>
+              <option value="music">🎵 Music Festival</option>
+              <option value="market">🥦 Farmers Market</option>
+              <option value="art">🎨 Art Workshop</option>
+              <option value="run">🏃 Charity 5K Run</option>
+              <option value="food">🍜 Food Festival</option>
+              <option value="tree">🌳 Tree Plantation</option>
+            </select>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" onclick="savePreference()">💾 Save Preference</button>
+            <button class="btn clear" onclick="clearPreferences()">🗑 Clear Preferences</button>
+          </div>
+          <div class="pref-saved" id="prefSaved">✔ Preference saved!</div>
+        </div>
+      </section>
+
+      <!-- ══ Exercise 9 — GEOLOCATION ══ -->
+      <section id="location">
+        <span class="label">Exercise 9</span>
+        <h2>Find Nearby Events</h2>
+        <p>Allow location access to discover events closest to you.</p>
+
+        <button class="btn" style="margin-top:20px;"
+                onclick="findNearbyEvents()">📍 Find Nearby Events</button>
+
+        <div id="geoResult"></div>
+      </section>
+
+      <!-- ══ Exercise 10 — DEVTOOLS ══ -->
+      <section id="devtools">
+        <span class="label green">Exercise 10</span>
+        <h2>Debugging with Chrome DevTools</h2>
+        <p>Open DevTools (<kbd>F12</kbd>) and explore the console logs, breakpoints, and live style edits below.</p>
+
+        <div class="devtools-note" style="margin-top:20px;">
+          <div><span class="cmd">Console:</span>  Open DevTools → Console tab to see portal logs</div>
+          <div><span class="cmd">Elements:</span> Right-click any element → Inspect → edit CSS live</div>
+          <div><span class="cmd">Sources:</span>  Go to Sources tab → find this page → click line numbers for breakpoints</div>
+          <div><span class="cmd">Network:</span>  Reload with DevTools open to watch resource loading</div>
+          <div><span class="cmd">Tip:</span>      Try: <em>document.getElementById('welcomeBanner').style.background='crimson'</em></div>
+        </div>
+      </section>
+
+      <!-- ══ CONTACT ══ -->
+      <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Questions? Reach the city events team at <a href="mailto:events@civicpulse.city" style="color:var(--sky);font-weight:600;">events@civicpulse.city</a> or call <strong>1800-CIVIC-00</strong>.</p>
+      </section>
+
+    </div><!-- /container -->
+  </main>
+
+  <!-- ╔══════════════════════════════════╗
+       ║   FOOTER                         ║
+       ╚══════════════════════════════════╝ -->
+  <footer>
+    <p>© 2025 CivicPulse — Local Community Event Portal &nbsp;|&nbsp;
+       <a href="help.html" target="_blank">Help</a> &nbsp;|&nbsp;
+       <a href="#home">Back to top ↑</a>
+    </p>
+  </footer>
+
+
+  <!-- ╔══════════════════════════════════╗
+       ║   JAVASCRIPT                     ║
+       ╚══════════════════════════════════╝ -->
+  <script>
+    /* ── Breakpoint-friendly console logs (Ex 10) ── */
+    console.log('%c🏙 CivicPulse Portal Loaded', 'color:#1a3a5c;font-size:1.1rem;font-weight:bold;');
+    console.log('localStorage keys:', Object.keys(localStorage));
+
+    /* ──────────────────────────────────────
+       Ex 4 — ondblclick: zoom image toggle
+    ────────────────────────────────────── */
+    function toggleZoom(img) {
+      img.classList.toggle('zoomed');
+      console.log('Image zoomed:', img.alt);   // DevTools log
+    }
+
+    /* ──────────────────────────────────────
+       Ex 5 — Form submit → <output>
+    ────────────────────────────────────── */
+    function submitForm(event) {
+      event.preventDefault();
+      const name  = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const date  = document.getElementById('eventDate').value;
+      const type  = document.getElementById('eventType').options[
+                      document.getElementById('eventType').selectedIndex
+                    ].text;
+      const out   = document.getElementById('formOutput');
+
+      if (!name || !email || !date || !document.getElementById('eventType').value) {
+        out.style.background = '#fdecea';
+        out.style.borderLeftColor = '#c0392b';
+        out.style.color = '#c0392b';
+        out.textContent = '⚠ Please fill in all required fields.';
+        return;
+      }
+
+      out.style.background = '#e6f4ea';
+      out.style.borderLeftColor = '#3b5e3a';
+      out.style.color = '#3b5e3a';
+      out.textContent = `✅ Thank you, ${name}! You're registered for "${type}" on ${date}. A confirmation will be sent to ${email}.`;
+      console.log('Form submitted:', { name, email, date, type });   // DevTools log
+    }
+
+    /* ──────────────────────────────────────
+       Ex 5 — onclick: submit button
+    ────────────────────────────────────── */
+    function handleSubmitClick() {
+      console.log('Submit button clicked');   // DevTools breakpoint line
+    }
+
+    /* ──────────────────────────────────────
+       Ex 5/6 — Event fee lookup
+    ────────────────────────────────────── */
+    const fees = { music:'Free', market:'Free', art:'₹200', run:'₹500', food:'₹350', tree:'Free' };
+
+    function updateFeeFromReg(val) {
+      if (val) console.log('Event selected in registration:', val, '| Fee:', fees[val]);
+    }
+
+    /* ──────────────────────────────────────
+       Ex 6 — onblur: phone validation
+    ────────────────────────────────────── */
+    function validatePhone(input) {
+      const cleaned = input.value.replace(/[\s\-\+]/g, '');
+      const msg = document.getElementById('phoneMsg');
+      if (!input.value) { msg.textContent = ''; input.classList.remove('error'); return; }
+      if (!/^\d{10,13}$/.test(cleaned)) {
+        input.classList.add('error');
+        msg.textContent = '⚠ Enter a valid 10–13 digit phone number.';
+      } else {
+        input.classList.remove('error');
+        msg.textContent = '✔ Phone number looks good!';
+        msg.style.color = '#3b5e3a';
+      }
+      console.log('Phone blur validation — value:', input.value);   // DevTools log
+    }
+
+    /* ──────────────────────────────────────
+       Ex 6 — onchange: show event fee
+    ────────────────────────────────────── */
+    function showEventFee(val) {
+      const el = document.getElementById('feeDisplay');
+      if (!val) { el.style.display = 'none'; return; }
+      el.style.display = 'inline-block';
+      el.textContent = `Entry Fee: ${fees[val] || 'TBD'}`;
+      console.log('Feedback dropdown changed:', val, '| Fee:', fees[val]);
+    }
+
+    /* ──────────────────────────────────────
+       Ex 6 — key events: char counter
+    ────────────────────────────────────── */
+    function countChars(textarea) {
+      const len = textarea.value.length;
+      document.getElementById('charCount').textContent = `${len} / 300 characters`;
+    }
+
+    /* ──────────────────────────────────────
+       Ex 6 — onclick: feedback submit
+    ────────────────────────────────────── */
+    function submitFeedback() {
+      const text  = document.getElementById('feedbackText').value.trim();
+      const event = document.getElementById('feedbackEvent').value;
+      const div   = document.getElementById('feedbackConfirm');
+      if (!event) { alert('Please select an event first.'); return; }
+      div.style.display = 'block';
+      div.textContent = text
+        ? `✅ Thank you for your feedback on the "${fees[event] ? event : event}" event!`
+        : `✅ Feedback noted for the ${event} event!`;
+      console.log('Feedback submitted:', { event, text });
+    }
+
+    /* ──────────────────────────────────────
+       Ex 7 — oncanplay: video ready message
+    ────────────────────────────────────── */
+    function videoReady() {
+      const msg = document.getElementById('videoMsg');
+      msg.style.display = 'block';
+      console.log('Video can play — oncanplay fired');
+    }
+
+    /* ──────────────────────────────────────
+       Ex 7 — onbeforeunload: warn if form dirty
+    ────────────────────────────────────── */
+    let formDirty = false;
+    document.querySelectorAll('#regForm input, #regForm select, #regForm textarea')
+      .forEach(el => el.addEventListener('input', () => { formDirty = true; }));
+
+    window.addEventListener('beforeunload', function(e) {
+      if (formDirty) {
+        e.preventDefault();
+        e.returnValue = 'You have unsaved registration data. Are you sure you want to leave?';
+      }
+    });
+
+    /* ──────────────────────────────────────
+       Ex 8 — localStorage: save preference
+    ────────────────────────────────────── */
+    function savePreference() {
+      const val = document.getElementById('prefEvent').value;
+      if (!val) { alert('Please select an event type first.'); return; }
+      localStorage.setItem('preferredEvent', val);
+      sessionStorage.setItem('sessionEvent', val);
+      document.getElementById('prefSaved').style.display = 'block';
+      setTimeout(() => document.getElementById('prefSaved').style.display = 'none', 2500);
+      console.log('Preference saved to localStorage:', val);
+    }
+
+    function clearPreferences() {
+      localStorage.clear();
+      sessionStorage.clear();
+      document.getElementById('prefEvent').value = '';
+      document.getElementById('regForm').querySelector('#eventType').value = '';
+      alert('✅ All preferences have been cleared.');
+      console.log('localStorage and sessionStorage cleared');
+    }
+
+    /* Load saved preference on page load */
+    (function loadSavedPreference() {
+      const saved = localStorage.getItem('preferredEvent');
+      if (saved) {
+        document.getElementById('prefEvent').value = saved;
+        // Also pre-select in registration form
+        const regSelect = document.getElementById('eventType');
+        if (regSelect) regSelect.value = saved;
+        console.log('Loaded saved preference from localStorage:', saved);
+      }
+    })();
+
+    /* ──────────────────────────────────────
+       Ex 9 — Geolocation
+    ────────────────────────────────────── */
+    function findNearbyEvents() {
+      const result = document.getElementById('geoResult');
+      result.style.display = 'block';
+      result.innerHTML = '⏳ Locating you…';
+
+      if (!navigator.geolocation) {
+        result.innerHTML = '❌ Geolocation is not supported by your browser.';
+        return;
+      }
+
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 8000,
+        maximumAge: 0
+      };
+
+      navigator.geolocation.getCurrentPosition(
+        function(pos) {
+          const { latitude, longitude, accuracy } = pos.coords;
+          result.innerHTML = `
+            <strong>📍 Your Location Found!</strong><br>
+            Latitude: <strong>${latitude.toFixed(5)}</strong><br>
+            Longitude: <strong>${longitude.toFixed(5)}</strong><br>
+            Accuracy: <strong>±${Math.round(accuracy)} metres</strong><br><br>
+            🎯 <em>Searching for events near you…</em><br>
+            <br>🎵 City Music Festival — <strong>1.2 km away</strong><br>
+            🥦 Farmers Market — <strong>2.8 km away</strong><br>
+            🌳 Tree Plantation — <strong>3.4 km away</strong>
+          `;
+          console.log('Geolocation success:', { latitude, longitude, accuracy });
+        },
+        function(err) {
+          const messages = {
+            1: '🚫 Permission denied. Please allow location access in your browser settings.',
+            2: '📡 Position unavailable. Could not determine your location.',
+            3: '⏰ Request timed out. Please try again.'
+          };
+          result.innerHTML = messages[err.code] || '❌ An unknown error occurred.';
+          console.warn('Geolocation error:', err.message);
+        },
+        options
+      );
+    }
+
+    /* ──────────────────────────────────────
+       Ex 10 — DevTools: intentional breakpoint
+    ────────────────────────────────────── */
+    function portalDebugInfo() {
+      const info = {                         // ← set a DevTools breakpoint here
+        page: 'CivicPulse Portal',
+        localStorage: { ...localStorage },
+        userAgent: navigator.userAgent.slice(0, 60)
+      };
+      console.table(info);
+      return info;
+    }
+    // Call it so it runs on load — visible in DevTools Console
+    portalDebugInfo();
+  </script>
+
+</body>
+</html>
