@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<!-- Exercise 1: DOCTYPE, lang, charset — base template -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivicPulse — Community Event Portal</title>
+
+  <!-- Exercise 1 & CSS Ex1: External stylesheet linked here -->
+  <link rel="stylesheet" href="exercises.css">
+
+  <!-- CSS Ex5: Google Font via <link> -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Exercise 1 & CSS Ex1: Embedded <style> for body background (internal CSS) -->
+  <style>
+    /* CSS Ex1: Internal/embedded style — body background fallback */
+    body {
+      background-color: #f7f3ec; /* fallback color if bg image fails */
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       Exercise 1: HTML5 Base Template
+       Semantic structure with labeled section comments
+  ============================================================ -->
+
+  <!-- ── HERO HEADER ── -->
+  <div class="hero" id="mainHeader">
+    <!-- CSS Ex1 (inline): One heading made red via inline style — Ex3 demo -->
+    <div class="container">
+      <h1 class="hero-title">Civic<span class="accent">Pulse</span></h1>
+      <!-- CSS Ex1: Inline style example — red heading as required -->
+      <p style="color: red; font-weight: bold; font-size: 0.85rem; margin-top: 4px;">
+        ★ Inline Style Demo (CSS Ex 1): This text is styled inline.
+      </p>
+      <p class="hero-sub">Your local community event portal — register, explore &amp; connect.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       Exercise 2: Navigation and Linking
+       <nav>, anchor tags, section IDs, external link
+  ============================================================ -->
+
+  <!-- Navigation section -->
+  <nav id="mainNav">
+    <div class="container nav-inner">
+      <!-- Anchor links matching section IDs (Ex 2) -->
+      <a href="#home">Home</a>
+      <a href="#events">Events</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#register">Register</a>
+      <a href="#feedback">Feedback</a>
+      <a href="#video">Video</a>
+      <a href="#bulletin">Bulletin</a>
+      <a href="#preferences">Preferences</a>
+      <a href="#location">Location</a>
+      <a href="#contact">Contact</a>
+      <!-- External link with target="_blank" (Ex 2) -->
+      <a href="help.html" target="_blank" class="nav-ext">Help ↗</a>
+    </div>
+  </nav>
+
+  <!-- Main content area -->
+  <main>
+    <div class="container">
+
+      <!-- ============================================================
+           Exercise 3: Welcome Message — id, class, inline style,
+           .highlight class
+      ============================================================ -->
+      <section id="home">
+        <span class="section-label">HTML Ex 1 &amp; 3</span>
+        <h2>Welcome to CivicPulse</h2>
+
+        <!-- id="welcomeBanner" with blue background (Ex 3) -->
+        <div id="welcomeBanner">
+          <h3>Hello, <span class="highlight">Resident</span>! 👋</h3>
+          <p>You have <strong>3 upcoming events</strong> near you.</p>
+          <!-- Inline style for special offer span (Ex 3) -->
+          <p>Special Offer:
+            <span style="color: red; font-weight: bold;">
+              Free entry for first-timers this weekend!
+            </span>
+          </p>
+        </div>
+
+        <p class="highlight">Highlighted text using the <code>.highlight</code> class (Ex 3).</p>
+        <p>Discover local events, register, share feedback, and find nearby activities — all in one place.</p>
+      </section>
+
+      <!-- ============================================================
+           Exercise 4: Image Gallery in a Table
+           <table>, <img> with alt/title, .img-border class, <caption>
+      ============================================================ -->
+      <section id="gallery">
+        <span class="section-label">HTML Ex 4</span>
+        <h2>Community Events Gallery</h2>
+
+        <table class="gallery-table">
+          <caption>📸 Past Community Event Highlights — Double-click an image to zoom (Ex 6)</caption>
+          <!-- Row 1 -->
+          <tr>
+            <td>
+              <img
+                src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=360&h=200&fit=crop"
+                alt="City Music Festival — crowd enjoying live performance"
+                title="City Music Festival, June 2024"
+                class="img-border"
+                ondblclick="toggleZoom(this)"
+              >
+              <p class="img-caption">🎵 City Music Festival</p>
+            </td>
+            <td>
+              <img
+                src="https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?w=360&h=200&fit=crop"
+                alt="Community farmers market with fresh produce stalls"
+                title="Farmers Market, July 2024"
+                class="img-border"
+                ondblclick="toggleZoom(this)"
+              >
+              <p class="img-caption">🥦 Farmers Market</p>
+            </td>
+            <td>
+              <img
+                src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=360&h=200&fit=crop"
+                alt="Children painting at community art workshop"
+                title="Art Workshop, August 2024"
+                class="img-border"
+                ondblclick="toggleZoom(this)"
+              >
+              <p class="img-caption">🎨 Art Workshop</p>
+            </td>
+          </tr>
+          <!-- Row 2 -->
+          <tr>
+            <td>
+              <img
+                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=360&h=200&fit=crop"
+                alt="Residents participating in community 5K charity run"
+                title="Charity 5K Run, September 2024"
+                class="img-border"
+                ondblclick="toggleZoom(this)"
+              >
+              <p class="img-caption">🏃 Charity 5K Run</p>
+            </td>
+            <td>
+              <img
+                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=360&h=200&fit=crop"
+                alt="Evening food festival with lanterns and food stalls"
+                title="Food Festival, October 2024"
+                class="img-border"
+                ondblclick="toggleZoom(this)"
+              >
+              <p class="img-caption">🍜 Food Festival</p>
+            </td>
+            <td>
+              <img
+                src="https://images.unsplash.com/photo-1519671282429-b44660ead0a7?w=360&h=200&fit=crop"
+                alt="Volunteers planting trees on environment day"
+                title="Tree Plantation Drive, November 2024"
+                class="img-border"
+                ondblclick="toggleZoom(this)"
+              >
+              <p class="img-caption">🌳 Tree Plantation</p>
+            </td>
+          </tr>
+        </table>
+        <p class="hint">💡 Double-click any image to zoom in/out (HTML Ex 6 — ondblclick).</p>
+      </section>
+
+      <!-- ============================================================
+           Exercise 2: Events section (nav target id="events")
+      ============================================================ -->
+      <section id="events">
+        <span class="section-label">HTML Ex 2 — Nav Target</span>
+        <h2>Upcoming Events</h2>
+        <p>Browse events below or <a href="#register">register here</a>.
+           Need help? <a href="help.html" target="_blank">Visit our help page ↗</a>.</p>
+
+        <!-- JS Ex 7: Event cards rendered here by main.js -->
+        <div id="eventList" class="event-grid">
+          <!-- Populated dynamically by main.js -->
+          <p class="loading-msg">⏳ Loading events...</p>
+        </div>
+
+        <!-- JS Ex 8: Filter by category (onchange) -->
+        <div class="filter-bar">
+          <label for="categoryFilter"><strong>Filter by category:</strong></label>
+          <select id="categoryFilter" onchange="filterByCategory(this.value)">
+            <option value="all">All Events</option>
+            <option value="music">🎵 Music</option>
+            <option value="food">🍜 Food</option>
+            <option value="art">🎨 Art</option>
+            <option value="sports">🏃 Sports</option>
+            <option value="nature">🌳 Nature</option>
+          </select>
+          <!-- JS Ex 8: Quick search by keydown -->
+          <input type="text" id="searchInput" placeholder="Search events... (type to filter)"
+                 onkeyup="searchEvents(this.value)">
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Exercise 5: Event Registration Form
+           input types, validation, placeholder, autofocus, <output>
+      ============================================================ -->
+      <section id="register">
+        <span class="section-label">HTML Ex 5 &amp; JS Ex 11</span>
+        <h2>Event Registration</h2>
+        <p>Fill in the form below to secure your spot.</p>
+
+        <form id="regForm" novalidate>
+          <div class="form-grid">
+
+            <!-- Name: text, autofocus -->
+            <div class="form-group">
+              <label for="fullName">Full Name *</label>
+              <input type="text" id="fullName" name="fullName"
+                     placeholder="e.g. Priya Sharma"
+                     required autofocus>
+              <span class="field-error" id="nameError"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email"
+                     placeholder="you@example.com" required>
+              <span class="field-error" id="emailError"></span>
+            </div>
+
+            <!-- Date -->
+            <div class="form-group">
+              <label for="eventDate">Preferred Date *</label>
+              <input type="date" id="eventDate" name="eventDate" required>
+              <span class="field-error" id="dateError"></span>
+            </div>
+
+            <!-- Event Type: select, onchange triggers JS -->
+            <div class="form-group">
+              <label for="eventType">Event Type *</label>
+              <select id="eventType" name="eventType" required
+                      onchange="handleEventTypeChange(this.value)">
+                <option value="">— Select an event —</option>
+                <option value="music">🎵 Music Festival (Free)</option>
+                <option value="market">🥦 Farmers Market (Free)</option>
+                <option value="art">🎨 Art Workshop (₹200)</option>
+                <option value="run">🏃 Charity 5K Run (₹500)</option>
+                <option value="food">🍜 Food Festival (₹350)</option>
+                <option value="tree">🌳 Tree Plantation (Free)</option>
+              </select>
+              <span class="field-error" id="typeError"></span>
+            </div>
+
+            <!-- Message: textarea -->
+            <div class="form-group full-width">
+              <label for="message">Message / Special Requirements</label>
+              <textarea id="message" name="message"
+                        placeholder="Dietary needs, accessibility requirements, etc."
+                        rows="4"></textarea>
+            </div>
+          </div>
+
+          <!-- CSS Ex2: .cta-button styled in styles.css -->
+          <div class="form-actions">
+            <button type="submit" id="registerBtn" class="btn cta-button"
+                    onclick="handleRegisterClick(event)">Register Now</button>
+            <button type="reset" class="btn btn-clear">Reset</button>
+          </div>
+
+          <!-- Exercise 5: <output> confirmation message -->
+          <output id="formOutput" for="fullName email eventDate eventType"></output>
+        </form>
+      </section>
+
+      <!-- ============================================================
+           Exercise 6: Event Feedback — blur, change, click,
+           dblclick, keyboard events
+      ============================================================ -->
+      <section id="feedback">
+        <span class="section-label">HTML Ex 6</span>
+        <h2>Event Feedback</h2>
+        <p>Share your experience to help us improve.</p>
+
+        <div class="feedback-grid">
+
+          <!-- onblur: phone validation -->
+          <div class="form-group">
+            <label for="phoneField">Phone Number</label>
+            <input type="tel" id="phoneField"
+                   placeholder="+91 98765 43210"
+                   onblur="validatePhone(this)">
+            <span class="field-error" id="phoneMsg"></span>
+          </div>
+
+          <!-- onchange: show event fee -->
+          <div class="form-group">
+            <label for="feedbackEvent">Select Event</label>
+            <select id="feedbackEvent" onchange="showEventFee(this.value)">
+              <option value="">— Pick an event —</option>
+              <option value="music">🎵 Music Festival</option>
+              <option value="market">🥦 Farmers Market</option>
+              <option value="art">🎨 Art Workshop</option>
+              <option value="run">🏃 Charity 5K Run</option>
+              <option value="food">🍜 Food Festival</option>
+              <option value="tree">🌳 Tree Plantation</option>
+            </select>
+            <div id="feeDisplay" class="fee-badge" style="display:none;"></div>
+          </div>
+
+          <!-- key events: char counter -->
+          <div class="form-group full-width">
+            <label for="feedbackText">Your Feedback</label>
+            <textarea id="feedbackText" maxlength="300"
+                      placeholder="Tell us what you thought..."
+                      onkeyup="countChars(this)"
+                      onkeydown="countChars(this)"></textarea>
+            <div class="char-count" id="charCount">0 / 300 characters</div>
+          </div>
+        </div>
+
+        <!-- onclick: feedback submit confirmation -->
+        <button class="btn cta-button" onclick="submitFeedback()">Submit Feedback</button>
+        <div id="feedbackConfirm" class="confirm-msg" style="display:none;"></div>
+      </section>
+
+      <!-- ============================================================
+           Exercise 7: Video — <video>, oncanplay, onbeforeunload
+      ============================================================ -->
+      <section id="video">
+        <span class="section-label">HTML Ex 7</span>
+        <h2>Event Promo Video</h2>
+        <p>Watch our community highlights reel.</p>
+
+        <div class="video-wrap">
+          <!-- oncanplay fires when video is buffered enough to play -->
+          <video id="promoVideo" controls
+                 oncanplay="videoReady()"
+                 poster="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=660&h=370&fit=crop">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            <source src="https://www.w3schools.com/html/movie.ogg"   type="video/ogg">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <!-- Message shown when oncanplay fires -->
+        <div id="videoMsg" class="video-ready-msg" style="display:none;">
+          ✅ Video is ready to play!
+        </div>
+      </section>
+
+      <!-- ============================================================
+           CSS Ex 9: Multi-column Bulletin (newspaper layout)
+      ============================================================ -->
+      <section id="bulletin">
+        <span class="section-label">CSS Ex 9</span>
+        <h2>Community Bulletin</h2>
+
+        <!-- multi-column class applied in styles.css -->
+        <div class="bulletin-columns">
+          <p>The city council is pleased to announce the upcoming Summer Gala, a flagship event celebrating our community's diversity and talent. Residents from all wards are invited to participate in the festivities planned across three days.</p>
+          <p>Local vendors will showcase handmade crafts, regional cuisine, and live performances. The organizing committee has confirmed that parking will be available at the Central Grounds and shuttle services will run every 20 minutes from major bus stops.</p>
+          <p>Volunteers are urgently needed for event setup, crowd management, and information desks. Interested residents can sign up through this portal's registration page or visit the ward office between 10am and 4pm on weekdays.</p>
+          <p>Safety and accessibility remain top priorities. Ramps, sign-language interpreters, and dedicated quiet zones will be available. Medical personnel will be on standby throughout the three-day event. All participants are encouraged to carry valid ID.</p>
+          <p>In addition, the council reminds residents of the ongoing tree plantation initiative every Sunday morning at the Riverside Park. Saplings are provided free of charge and refreshments will be served to all volunteers who show up before 7am.</p>
+          <p>The next town hall meeting is scheduled for the last Friday of the month. Agenda items include the proposed community library extension, repair of footpaths in Ward 4, and updates to the digital portal. All suggestions are welcome in writing before the meeting date.</p>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Exercise 8: Saving User Preferences — localStorage
+      ============================================================ -->
+      <section id="preferences">
+        <span class="section-label">HTML Ex 8</span>
+        <h2>Your Preferences</h2>
+        <p>We remember your favourite event type across visits using <code>localStorage</code>.</p>
+
+        <div class="pref-box">
+          <div class="form-group">
+            <label for="prefEvent">Preferred Event Type</label>
+            <select id="prefEvent">
+              <option value="">— Choose one —</option>
+              <option value="music">🎵 Music Festival</option>
+              <option value="market">🥦 Farmers Market</option>
+              <option value="art">🎨 Art Workshop</option>
+              <option value="run">🏃 Charity 5K Run</option>
+              <option value="food">🍜 Food Festival</option>
+              <option value="tree">🌳 Tree Plantation</option>
+            </select>
+          </div>
+          <div class="pref-actions">
+            <button class="btn cta-button" onclick="savePreference()">💾 Save Preference</button>
+            <button class="btn btn-clear" onclick="clearPreferences()">🗑 Clear Preferences</button>
+          </div>
+          <div id="prefSaved" class="confirm-msg" style="display:none;">✔ Preference saved to localStorage!</div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Exercise 9: Geolocation
+      ============================================================ -->
+      <section id="location">
+        <span class="section-label">HTML Ex 9</span>
+        <h2>Find Nearby Events</h2>
+        <p>Allow location access to discover the closest events to you.</p>
+        <button class="btn cta-button" onclick="findNearbyEvents()">📍 Find Nearby Events</button>
+        <div id="geoResult" class="geo-result" style="display:none;"></div>
+      </section>
+
+      <!-- ============================================================
+           Exercise 10 & JS Ex 13: DevTools / Debugging info
+      ============================================================ -->
+      <section id="devtools">
+        <span class="section-label">HTML Ex 10 &amp; JS Ex 13</span>
+        <h2>Debugging with Chrome DevTools</h2>
+        <p>Open DevTools (<kbd>F12</kbd>) to explore console logs, breakpoints, and live edits.</p>
+
+        <div class="devtools-console">
+          <div><span class="cmd">Console:</span>  Open DevTools → Console tab to see portal logs</div>
+          <div><span class="cmd">Elements:</span> Right-click → Inspect → edit CSS live</div>
+          <div><span class="cmd">Sources:</span>  Sources tab → click line numbers for breakpoints</div>
+          <div><span class="cmd">Network:</span>  Reload with DevTools open → watch styles.css &amp; main.js load</div>
+          <div><span class="cmd">Try in console:</span> <em>document.getElementById('welcomeBanner').style.background='crimson'</em></div>
+        </div>
+
+        <!-- CSS Ex 8: visibility hidden vs display none demo -->
+        <div class="visibility-demo">
+          <h3>CSS Ex 8: visibility:hidden vs display:none</h3>
+          <div class="vis-row">
+            <div class="vis-box visible-box">Visible</div>
+            <div class="vis-box hidden-box">visibility: hidden (space kept)</div>
+            <div class="vis-box">After hidden</div>
+          </div>
+          <div class="vis-row" style="margin-top:12px;">
+            <div class="vis-box visible-box">Visible</div>
+            <div class="vis-box none-box">display: none (no space)</div>
+            <div class="vis-box">After none</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           JS Ex 12: AJAX / Fetch demo section
+      ============================================================ -->
+      <section id="ajax">
+        <span class="section-label">JS Ex 12 — AJAX &amp; Fetch API</span>
+        <h2>Submit Registration via Fetch</h2>
+        <p>Simulates sending data to a backend API using <code>fetch()</code> with POST.</p>
+        <button class="btn cta-button" onclick="simulateFetchPost()">📤 Send Mock Registration</button>
+        <div id="fetchResult" class="confirm-msg" style="display:none; margin-top:14px;"></div>
+      </section>
+
+      <!-- ============================================================
+           JS Ex 14: jQuery demo section
+      ============================================================ -->
+      <section id="jquery-demo">
+        <span class="section-label">JS Ex 14 — jQuery</span>
+        <h2>jQuery Interactions</h2>
+        <p>Using jQuery for click handling and fade animations.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
+          <button class="btn cta-button" id="jqFadeBtn">Toggle Card Visibility (fadeIn/fadeOut)</button>
+          <button class="btn btn-clear" id="jqAlertBtn">jQuery Click Alert</button>
+        </div>
+        <div id="jqCard" class="jq-card">
+          🎉 This card fades in/out using jQuery's <code>.fadeIn()</code> and <code>.fadeOut()</code>!
+        </div>
+        <p class="hint" style="margin-top:12px;">💡 <strong>Framework benefit:</strong> React/Vue offer component-based architecture, reactive state, and virtual DOM — making large-scale apps far more maintainable than jQuery.</p>
+      </section>
+
+      <!-- Contact section (nav target) -->
+      <section id="contact">
+        <span class="section-label">Contact</span>
+        <h2>Contact Us</h2>
+        <p>Questions? Reach the city events team at
+          <a href="mailto:events@civicpulse.city">events@civicpulse.city</a>
+          or call <strong>1800-CIVIC-00</strong>.
+        </p>
+      </section>
+
+    </div><!-- /container -->
+  </main>
+
+  <!-- Footer section -->
+  <footer id="mainFooter">
+    <div class="container">
+      <p>© 2025 CivicPulse — Local Community Event Portal &nbsp;|&nbsp;
+         <a href="help.html" target="_blank">Help</a> &nbsp;|&nbsp;
+         <a href="#home">Back to top ↑</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Exercise 1 (JS): External script linked at bottom of body -->
+  <!-- jQuery (JS Ex 14) loaded before main.js -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="exercises.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,942 @@
+/* ================================================================
+   styles.css — CivicPulse Community Event Portal
+   CSS3 Module: All 11 exercises demonstrated here
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   CSS Exercise 1: External stylesheet (this file is linked via
+   <link rel="stylesheet" href="styles.css"> in index.html)
+   Inline style: one heading is red — done in index.html
+   Internal style: body background-color — done in index.html <style>
+   ---------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------
+   CSS Exercise 2: CSS Syntax and Comments
+   Clean, readable CSS with descriptive comments above selectors
+   ---------------------------------------------------------------- */
+
+/* Style for main CTA button */
+.cta-button {
+  background-color: #1a3a5c;
+  color: white;
+  border: none;
+  padding: 13px 32px;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* CTA button hover state */
+.cta-button:hover {
+  background-color: #c8952a;
+}
+
+/* CTA button active (pressed) state */
+.cta-button:active {
+  transform: scale(0.97);
+}
+
+
+/* ================================================================
+   CSS Exercise 3: Selectors Playground
+   Universal, element, ID, class, and grouping selectors
+   ================================================================ */
+
+/* Universal selector — reset margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Element selector — style all <h2> headings */
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem;
+  color: #1a3a5c;
+  margin-bottom: 6px;
+}
+
+/* ID selector — #mainHeader banner styling */
+#mainHeader {
+  background: #1a3a5c;
+  color: #ffffff;
+  padding: 56px 40px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ID selector — #mainNav navigation bar */
+#mainNav {
+  background: #0f0f0f;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Class selector — .eventCard for event containers */
+.eventCard {
+  /* CSS Exercise 8: border, padding, margin on .eventCard */
+  border: 2px solid #d4c9b5;
+  padding: 20px;
+  margin: 12px 0;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* .eventCard hover lift effect */
+.eventCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Grouping selector — h3 and p styled together */
+h3, p {
+  line-height: 1.7;
+}
+
+h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: #1a3a5c;
+  margin-bottom: 4px;
+}
+
+p {
+  font-size: 0.95rem;
+  color: #333;
+}
+
+
+/* ================================================================
+   CSS Exercise 4: Color & Background Styling
+   HEX, RGBA, background image with fallback, linear-gradient
+   ================================================================ */
+
+/* Body: background image with HEX fallback color */
+body {
+  background-color: #f7f3ec;                          /* HEX fallback */
+  background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+  background-repeat: repeat;
+  color: #0f0f0f;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Section header gradient backgrounds */
+.hero {
+  background: linear-gradient(135deg, #1a3a5c 0%, #0f2340 60%, #c8952a 100%);
+  color: #ffffff;
+  padding: 56px 40px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* RGBA example — subtle overlay on hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.08);    /* RGBA color usage */
+  pointer-events: none;
+}
+
+/* Section label badges — gradient background */
+.section-label {
+  display: inline-block;
+  background: linear-gradient(90deg, #1a3a5c, #3b6ea5);  /* gradient */
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+/* Welcome banner — HEX + RGBA combo */
+#welcomeBanner {
+  background: rgba(26, 58, 92, 0.92);   /* RGBA */
+  color: #ffffff;
+  padding: 28px 32px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border-left: 5px solid #c8952a;
+}
+
+/* Footer gradient */
+#mainFooter {
+  background: linear-gradient(90deg, #0f0f0f 0%, #1a3a5c 100%);
+  color: #aaaaaa;
+  text-align: center;
+  padding: 28px 24px;
+  font-size: 0.85rem;
+  margin-top: 0;
+}
+
+
+/* ================================================================
+   CSS Exercise 5: Typography — Fonts and Text
+   Google Font already linked in HTML via <link>
+   font-family, font-size, font-style, font-weight,
+   text-align, text-transform, letter-spacing, line-height
+   ================================================================ */
+
+/* Hero typography */
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  position: relative;
+}
+
+/* Hero accent color */
+.hero-title .accent {
+  color: #f0d080;
+}
+
+/* Hero subtitle */
+.hero-sub {
+  margin-top: 10px;
+  opacity: 0.85;
+  font-size: 1.05rem;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  line-height: 1.6;
+}
+
+/* Section headings typography */
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  text-align: left;
+  letter-spacing: -0.3px;
+}
+
+/* Description paragraphs */
+section > p,
+section > div > p {
+  font-size: 0.97rem;
+  line-height: 1.8;
+  letter-spacing: 0.1px;
+}
+
+/* Footer links typography */
+#mainFooter a {
+  color: #f0d080;
+  letter-spacing: 0.2px;
+}
+
+/* Keyboard element */
+kbd {
+  font-family: 'Courier New', monospace;
+  background: #e0e0e0;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+/* Code element */
+code {
+  font-family: 'Courier New', monospace;
+  background: #f0ede8;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.88rem;
+}
+
+
+/* ================================================================
+   CSS Exercise 6: Link and List Styling
+   :link, :visited, :hover, :active pseudo-classes
+   list-style-type, list-style-position, no bullets on nav
+   ================================================================ */
+
+/* Link pseudo-classes */
+a:link {
+  color: #1a3a5c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:visited {
+  color: #7a5c8a;     /* visited links turn purple */
+}
+
+a:hover {
+  color: #c8952a;
+  text-decoration: underline;
+}
+
+a:active {
+  color: #c0392b;
+}
+
+/* Nav links — no bullets, styled list */
+#mainNav .nav-inner {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;           /* remove bullets */
+  list-style-position: inside;
+  padding: 0;
+  margin: 0;
+}
+
+#mainNav a {
+  color: #dddddd;
+  text-decoration: none;
+  padding: 14px 18px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  display: inline-block;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+#mainNav a:link,
+#mainNav a:visited {
+  color: #dddddd;
+  text-decoration: none;
+}
+
+#mainNav a:hover {
+  background-color: #c8952a;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#mainNav a:active {
+  background-color: #a07020;
+  color: #ffffff;
+}
+
+#mainNav a.nav-ext {
+  color: #f0d080;
+}
+
+/* Styled unordered list with spacing */
+ul.styled-list {
+  list-style-type: disc;
+  list-style-position: inside;
+  padding-left: 20px;
+}
+
+ul.styled-list li {
+  padding: 6px 0;
+  margin: 4px 0;
+  border-bottom: 1px dotted #d4c9b5;
+}
+
+
+/* ================================================================
+   CSS Exercise 7: Table Styling
+   borders, padding, background, zebra striping, border-collapse
+   ================================================================ */
+
+/* Gallery table */
+.gallery-table {
+  width: 100%;
+  border-collapse: collapse;          /* Ex 7: collapse borders */
+  margin-top: 18px;
+  border: 2px solid #d4c9b5;
+}
+
+.gallery-table caption {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: #1a3a5c;
+  padding-bottom: 12px;
+  text-align: left;
+  font-style: italic;
+}
+
+.gallery-table th {
+  background-color: #1a3a5c;         /* th background */
+  color: #ffffff;
+  padding: 12px 16px;
+  text-align: center;                 /* center aligned */
+  font-weight: 600;
+  border: 1px solid #0f2340;
+}
+
+.gallery-table td {
+  padding: 14px 10px;
+  text-align: center;                 /* center aligned */
+  border: 1px solid #d4c9b5;
+  background-color: #ffffff;
+}
+
+/* Zebra striping — nth-child(even) */
+.gallery-table tr:nth-child(even) td {
+  background-color: #f0ede8;
+}
+
+.gallery-table tr:hover td {
+  background-color: #e8f0f9;
+}
+
+/* Admin events table */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.admin-table th {
+  background-color: #3b5e3a;
+  color: #ffffff;
+  padding: 10px 14px;
+  text-align: center;
+  border: 1px solid #2d4a2c;
+}
+
+.admin-table td {
+  padding: 10px 14px;
+  text-align: center;
+  border: 1px solid #d4c9b5;
+}
+
+.admin-table tr:nth-child(even) td {
+  background-color: #f0f5ef;         /* zebra stripe */
+}
+
+
+/* ================================================================
+   CSS Exercise 8: Box Model & Layout Control
+   margin, padding, border, outline on .eventCard, form fields
+   visibility:hidden vs display:none demo
+   ================================================================ */
+
+/* .eventCard — border, padding, margin (already defined above in Ex 3) */
+/* Reinforced here with box model comment */
+.eventCard {
+  /* Box Model Properties:
+     margin    — space OUTSIDE the element
+     border    — the visible boundary
+     padding   — space INSIDE the border
+     content   — the actual content area
+  */
+  margin: 16px 0;
+  border: 2px solid #d4c9b5;
+  padding: 20px 24px;
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+}
+
+/* Outline on focused/selected form fields */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid #c8952a;        /* outline (not border) to highlight */
+  outline-offset: 1px;
+  border-color: #1a3a5c;
+}
+
+input.error,
+select.error {
+  border-color: #c0392b;
+  outline: 2px solid rgba(192, 57, 43, 0.4);
+}
+
+/* visibility:hidden — element invisible but KEEPS its space */
+.hidden-box {
+  visibility: hidden;
+}
+
+/* display:none — element invisible AND removes space */
+.none-box {
+  display: none;
+}
+
+/* Visibility demo boxes */
+.visibility-demo {
+  margin-top: 24px;
+  padding: 20px;
+  background: #ffffff;
+  border: 2px dashed #d4c9b5;
+  border-radius: 10px;
+}
+
+.vis-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.vis-box {
+  padding: 12px 20px;
+  background: #1a3a5c;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.visible-box {
+  background: #3b5e3a;
+}
+
+
+/* ================================================================
+   CSS Exercise 9: Multiple Columns — Newspaper Layout
+   column-count, column-gap, column-rule
+   ================================================================ */
+
+/* Bulletin multi-column layout */
+.bulletin-columns {
+  column-count: 2;
+  column-gap: 30px;
+  column-rule: 1px solid gray;
+  margin-top: 20px;
+  font-size: 0.93rem;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.bulletin-columns p {
+  margin-bottom: 14px;
+  break-inside: avoid;              /* prevent paragraph split across columns */
+}
+
+
+/* ================================================================
+   CSS Exercise 10: Responsive Web Design — Media Queries
+   Flexbox and Grid layouts, %, vw, vh, font/image scaling
+   ================================================================ */
+
+/* Layout utilities */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+.nav-inner {
+  display: flex;                    /* Flexbox for nav */
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+/* Main sections */
+section {
+  padding: 60px 0;
+  border-bottom: 1px solid #d4c9b5;
+}
+
+section:last-child {
+  border: none;
+}
+
+/* Event grid — CSS Grid layout (Bonus: Grid) */
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);    /* 3 columns on desktop */
+  gap: 20px;
+  margin-top: 24px;
+}
+
+/* Form grid — 2 columns */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-group.full-width,
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Feedback grid */
+.feedback-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+/* Image sizing with % */
+.img-border {
+  width: 100%;                      /* responsive % width */
+  max-width: 260px;
+  height: 160px;
+  object-fit: cover;
+  border: 3px solid #d4c9b5;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.img-border:hover,
+.img-border.zoomed {
+  transform: scale(1.08);
+  border-color: #c8952a;
+}
+
+/* Video container — vw-based max width */
+.video-wrap {
+  max-width: 90vw;                  /* vw unit */
+  width: 660px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 16 / 9;
+  margin-top: 20px;
+}
+
+.video-wrap video {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── Media Query: tablet (≤768px) ── */
+@media (max-width: 768px) {
+
+  /* Stack nav links vertically */
+  #mainNav .nav-inner {
+    flex-direction: column;
+  }
+
+  #mainNav a {
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.9rem;              /* reduce font size */
+  }
+
+  /* Reduce heading font size */
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  /* Reduce image sizes */
+  .img-border {
+    max-width: 100%;
+    height: 120px;                  /* reduce height */
+  }
+
+  /* Stack event grid to 1 column */
+  .event-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stack form grid to 1 column */
+  .form-grid,
+  .feedback-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Single-column bulletin */
+  .bulletin-columns {
+    column-count: 1;
+  }
+
+  /* Section padding reduction */
+  section {
+    padding: 40px 0;
+  }
+
+  /* Video full width */
+  .video-wrap {
+    width: 100%;
+    max-width: 100vw;
+  }
+}
+
+/* ── Media Query: mobile (≤480px) ── */
+@media (max-width: 480px) {
+
+  .container {
+    padding: 0 14px;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  p, label, input, select, textarea {
+    font-size: 0.9rem;             /* reduce font size on mobile */
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero {
+    padding: 36px 20px 28px;
+  }
+}
+
+
+/* ================================================================
+   CSS Exercise 11: Debug and Test with DevTools
+   DevTools console display area — see also HTML Ex 10
+   ================================================================ */
+
+/* DevTools console styled section */
+.devtools-console {
+  background: #0f0f0f;
+  color: #a9ffa9;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  padding: 22px 24px;
+  border-radius: 10px;
+  line-height: 1.9;
+  margin-top: 20px;
+}
+
+.devtools-console .cmd {
+  color: #f0d080;
+  font-weight: bold;
+}
+
+.devtools-console em {
+  color: #80cfff;
+  font-style: normal;
+}
+
+
+/* ================================================================
+   COMPONENT STYLES (shared across modules)
+   ================================================================ */
+
+/* Form elements */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a3a5c;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+  padding: 10px 14px;
+  border: 2px solid #d4c9b5;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  background: #ffffff;
+  transition: border-color 0.2s ease;
+  outline: none;
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Error messages under fields */
+.field-error {
+  font-size: 0.8rem;
+  color: #c0392b;
+  min-height: 16px;
+}
+
+/* Output element confirmation */
+output {
+  display: block;
+  margin-top: 16px;
+  padding: 14px 18px;
+  background: #e6f4ea;
+  border-left: 4px solid #3b5e3a;
+  border-radius: 10px;
+  font-weight: 500;
+  color: #3b5e3a;
+}
+
+output:empty {
+  display: none;
+}
+
+/* Confirmation message */
+.confirm-msg {
+  padding: 12px 18px;
+  background: #e6f4ea;
+  border-left: 4px solid #3b5e3a;
+  border-radius: 10px;
+  font-weight: 500;
+  color: #3b5e3a;
+  font-size: 0.92rem;
+}
+
+/* Hint text */
+.hint {
+  font-size: 0.8rem;
+  color: #888888;
+  margin-top: 8px;
+}
+
+/* Image captions */
+.img-caption {
+  font-size: 0.82rem;
+  color: #555555;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* Button styles */
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-clear {
+  background: #888888;
+  color: #ffffff;
+}
+
+.btn-clear:hover {
+  background: #c0392b;
+}
+
+/* Form actions row */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+/* Filter bar */
+.filter-bar {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding: 16px;
+  background: #ffffff;
+  border: 2px solid #d4c9b5;
+  border-radius: 10px;
+}
+
+.filter-bar select,
+.filter-bar input {
+  flex: 1;
+  min-width: 160px;
+}
+
+/* Loading message */
+.loading-msg {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #888888;
+  font-style: italic;
+  padding: 30px 0;
+}
+
+/* Fee badge */
+.fee-badge {
+  display: inline-block;
+  background: #f0d080;
+  color: #0f0f0f;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+/* Char count */
+.char-count {
+  font-size: 0.78rem;
+  color: #888888;
+  text-align: right;
+  margin-top: 3px;
+}
+
+/* Geolocation result */
+.geo-result {
+  margin-top: 16px;
+  padding: 18px 22px;
+  background: #ffffff;
+  border: 2px solid #d4c9b5;
+  border-radius: 10px;
+  font-size: 0.93rem;
+  line-height: 1.8;
+}
+
+/* Video ready message */
+.video-ready-msg {
+  margin-top: 10px;
+  padding: 10px 16px;
+  background: #e8f0f9;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #1a3a5c;
+  font-weight: 500;
+}
+
+/* Preferences box */
+.pref-box {
+  background: #ffffff;
+  border: 2px solid #d4c9b5;
+  border-radius: 10px;
+  padding: 24px;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.pref-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Highlight class (HTML Ex 3) */
+.highlight {
+  background: #f0d080;
+  color: #0f0f0f;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+/* jQuery card */
+.jq-card {
+  margin-top: 18px;
+  padding: 20px 24px;
+  background: #e8f0f9;
+  border: 2px solid #1a3a5c;
+  border-radius: 10px;
+  color: #1a3a5c;
+  font-weight: 500;
+}
