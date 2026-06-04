@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<!-- Exercise 1.1: Basic HTML page with Bootstrap 5 via CDN -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivicPulse — Bootstrap 5 Module</title>
+
+  <!-- Ex 1.1: Bootstrap 5 CSS via CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Ex 17.1: Bootstrap Icons via CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Custom properties on top of Bootstrap ── */
+    :root {
+      --civic-navy:   #1a3a5c;
+      --civic-gold:   #c8952a;
+      --civic-moss:   #3b5e3a;
+      --civic-cream:  #f7f3ec;
+      --civic-rust:   #c0392b;
+    }
+
+    body { font-family: 'DM Sans', sans-serif; background: var(--civic-cream); }
+
+    /* Section exercise labels */
+    .ex-badge {
+      display: inline-block;
+      background: var(--civic-navy);
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .ex-badge.gold  { background: var(--civic-gold); }
+    .ex-badge.moss  { background: var(--civic-moss); }
+    .ex-badge.rust  { background: var(--civic-rust); }
+
+    /* Display font for headings */
+    h2, h3, .display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Section dividers */
+    .module-section {
+      padding: 56px 0;
+      border-bottom: 1px solid #d4c9b5;
+    }
+    .module-section:last-child { border: none; }
+
+    /* Ex 13: Custom dashboard card overrides */
+    .dash-card { border: none; border-radius: 14px; overflow: hidden; }
+
+    /* Ex 15: image with rounded + border utilities */
+    .profile-img-demo { width: 110px; height: 110px; object-fit: cover; }
+
+    /* Ex 16: badge overlay demo */
+    .badge-overlay-img { width: 100%; max-width: 240px; height: 160px; object-fit: cover; border-radius: 12px; }
+
+    /* Ex 19: Sass customisation note */
+    .sass-code {
+      background: #0f0f0f;
+      color: #a9ffa9;
+      font-family: 'Courier New', monospace;
+      font-size: .82rem;
+      padding: 20px 24px;
+      border-radius: 10px;
+      line-height: 1.9;
+    }
+    .sass-code .var { color: #f0d080; }
+    .sass-code .val { color: #80cfff; }
+    .sass-code .cmt { color: #888; }
+
+    /* Sticky top-nav offset for anchor scrolling */
+    html { scroll-padding-top: 64px; }
+
+    /* Ex 10.2 tab content */
+    .tab-content { background: #fff; border: 1px solid #dee2e6; border-top: none; padding: 24px; border-radius: 0 0 10px 10px; }
+  </style>
+</head>
+
+<body>
+
+<!-- ================================================================
+     Exercise 10.1: Responsive Navbar with logo, links, search
+     + Exercise 2.2: bootstrap.bundle.min.js included at bottom
+     ================================================================ -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background:var(--civic-navy);">
+  <div class="container">
+    <!-- Logo / Brand -->
+    <a class="navbar-brand fw-bold" href="#home" style="font-family:'Playfair Display',serif; font-size:1.4rem;">
+      <i class="bi bi-building me-2" style="color:var(--civic-gold);"></i>Civic<span style="color:var(--civic-gold);">Pulse</span>
+    </a>
+
+    <!-- Hamburger toggle (responsive collapse) -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav links + search -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="#grid">Grid</a></li>
+        <li class="nav-item"><a class="nav-link" href="#typography">Typography</a></li>
+        <li class="nav-item"><a class="nav-link" href="#forms">Forms</a></li>
+        <li class="nav-item"><a class="nav-link" href="#buttons">Buttons</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cards">Cards</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">More</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#spacing">Spacing</a></li>
+            <li><a class="dropdown-item" href="#colors">Colors</a></li>
+            <li><a class="dropdown-item" href="#display">Display</a></li>
+            <li><a class="dropdown-item" href="#borders">Borders</a></li>
+            <li><a class="dropdown-item" href="#positioning">Positioning</a></li>
+            <li><a class="dropdown-item" href="#icons">Icons</a></li>
+            <li><a class="dropdown-item" href="#plugins">JS Plugins</a></li>
+            <li><a class="dropdown-item" href="#sass">Sass</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- Search form in navbar -->
+      <form class="d-flex" role="search">
+        <input class="form-control form-control-sm me-2" type="search" placeholder="Search events…">
+        <button class="btn btn-sm btn-outline-light" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div id="home" class="py-5 text-white text-center" style="background:linear-gradient(135deg,var(--civic-navy),#0f2340);">
+  <div class="container py-3">
+    <h1 class="display-4 fw-bold" style="font-family:'Playfair Display',serif;">Bootstrap 5 Module</h1>
+    <p class="lead mt-2 opacity-75">All 19 exercise groups — Local Community Event Portal</p>
+    <a href="#grid" class="btn btn-warning btn-lg mt-3 px-4 rounded-pill fw-semibold">
+      <i class="bi bi-grid-3x3-gap me-2"></i>Explore Exercises
+    </a>
+  </div>
+</div>
+
+<main class="container py-4">
+
+  <!-- ==============================================================
+       EXERCISES 3 & 4: Grid System
+       ============================================================== -->
+  <section id="grid" class="module-section">
+    <span class="ex-badge">Ex 3 &amp; 4 — Grid System</span>
+    <h2 class="mb-4">Responsive Grid Layout &amp; Column Layouts</h2>
+
+    <!-- Ex 3.1 + 3.2: container / row / col-* — mobile stack, tablet 2-col, desktop 3-col -->
+    <h5 class="fw-semibold mb-3">Ex 3.1 — Three-column responsive grid</h5>
+    <div class="row g-3 mb-5">
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="p-3 rounded-3 text-white text-center fw-semibold" style="background:var(--civic-navy);">
+          Col 1<br><small class="opacity-75">Full → Half → Third</small>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="p-3 rounded-3 text-white text-center fw-semibold" style="background:var(--civic-gold);">
+          Col 2<br><small class="opacity-75">Full → Half → Third</small>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="p-3 rounded-3 text-white text-center fw-semibold" style="background:var(--civic-moss);">
+          Col 3<br><small class="opacity-75">Full → Full → Third</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 4.1: Sidebar col-md-3 + content col-md-9 -->
+    <h5 class="fw-semibold mb-3">Ex 4.1 — Sidebar (col-md-3) + Content (col-md-9)</h5>
+    <div class="row g-3 mb-5">
+      <div class="col-12 col-md-3">
+        <div class="p-3 rounded-3 h-100" style="background:#e8f0f9; border:2px solid var(--civic-navy);">
+          <p class="fw-bold mb-2" style="color:var(--civic-navy);">Sidebar</p>
+          <ul class="list-unstyled small mb-0">
+            <li class="py-1 border-bottom">🎵 Music</li>
+            <li class="py-1 border-bottom">🍜 Food</li>
+            <li class="py-1 border-bottom">🎨 Art</li>
+            <li class="py-1">🌳 Nature</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-md-9">
+        <div class="p-3 rounded-3 h-100 bg-white border">
+          <p class="fw-bold mb-1">Main Content Area</p>
+          <p class="text-muted small mb-0">This is the col-md-9 content area. On mobile both columns stack to full width. On medium screens and above, sidebar is 3 columns and content is 9.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 4.2: Four equal columns col-sm-3 -->
+    <h5 class="fw-semibold mb-3">Ex 4.2 — Four equal columns (col-sm-3)</h5>
+    <div class="row g-3">
+      {/* four equal */}
+      <div class="col-6 col-sm-3"><div class="p-3 text-center rounded-3 bg-white border fw-semibold">🎵 Music</div></div>
+      <div class="col-6 col-sm-3"><div class="p-3 text-center rounded-3 bg-white border fw-semibold">🍜 Food</div></div>
+      <div class="col-6 col-sm-3"><div class="p-3 text-center rounded-3 bg-white border fw-semibold">🎨 Art</div></div>
+      <div class="col-6 col-sm-3"><div class="p-3 text-center rounded-3 bg-white border fw-semibold">🌳 Nature</div></div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 5: Alignment & Reordering
+       ============================================================== -->
+  <section id="alignment" class="module-section">
+    <span class="ex-badge gold">Ex 5 — Alignment &amp; Reordering</span>
+    <h2 class="mb-4">Grid Alignment &amp; Column Order</h2>
+
+    <!-- Ex 5.1: justify-content-center + align-items-center -->
+    <h5 class="fw-semibold mb-3">Ex 5.1 — justify-content-center &amp; align-items-center</h5>
+    <div class="row justify-content-center align-items-center g-3 mb-5"
+         style="min-height:120px; background:#e8f0f9; border-radius:12px;">
+      <div class="col-auto">
+        <div class="p-3 rounded-3 text-white text-center" style="background:var(--civic-navy); min-width:120px;">Centered Col</div>
+      </div>
+      <div class="col-auto">
+        <div class="p-3 rounded-3 text-white text-center" style="background:var(--civic-gold); min-width:120px;">Centered Col</div>
+      </div>
+    </div>
+
+    <!-- Ex 5.2: order-md-2 / order-md-1 -->
+    <h5 class="fw-semibold mb-3">Ex 5.2 — Column Reorder (order-md-1 / order-md-2)</h5>
+    <div class="row g-3">
+      <div class="col-12 col-md-6 order-md-2">
+        <div class="p-3 rounded-3 bg-white border text-center">
+          <span class="badge bg-warning text-dark mb-1">Appears SECOND on mobile</span>
+          <p class="mb-0 fw-semibold">Column A — order-md-2</p>
+          <small class="text-muted">Moves to right on ≥md screens</small>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 order-md-1">
+        <div class="p-3 rounded-3 bg-white border text-center">
+          <span class="badge bg-success mb-1">Appears FIRST on mobile</span>
+          <p class="mb-0 fw-semibold">Column B — order-md-1</p>
+          <small class="text-muted">Moves to left on ≥md screens</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 6: Flexbox Utilities
+       ============================================================== -->
+  <section id="flexbox" class="module-section">
+    <span class="ex-badge moss">Ex 6 — Flexbox Utilities</span>
+    <h2 class="mb-4">Responsive Flexbox</h2>
+
+    <!-- Ex 6.1: d-flex flex-column flex-md-row -->
+    <h5 class="fw-semibold mb-3">Ex 6.1 — d-flex + flex-column + flex-md-row (responsive navbar style)</h5>
+    <div class="d-flex flex-column flex-md-row gap-2 mb-5 p-3 rounded-3" style="background:#e8f0f9;">
+      <a href="#" class="btn btn-outline-primary">Home</a>
+      <a href="#" class="btn btn-outline-primary">Events</a>
+      <a href="#" class="btn btn-outline-primary">Register</a>
+      <a href="#" class="btn btn-outline-primary">Contact</a>
+    </div>
+
+    <!-- Ex 6.2: justify-content-between + align-items-center in a card -->
+    <h5 class="fw-semibold mb-3">Ex 6.2 — justify-content-between &amp; align-items-center in card</h5>
+    <div class="card border-0 shadow-sm">
+      <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+          <h6 class="mb-1 fw-bold">City Music Festival</h6>
+          <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>15 Aug 2025 &nbsp;|&nbsp; <i class="bi bi-geo-alt me-1"></i>Central Park</small>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge bg-success">Free</span>
+          <button class="btn btn-sm btn-primary">Register</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 7: Typography
+       ============================================================== -->
+  <section id="typography" class="module-section">
+    <span class="ex-badge">Ex 7 — Typography</span>
+    <h2 class="mb-4">Bootstrap Typography Utilities</h2>
+
+    <!-- Ex 7.1: display-*, lead, text-muted, fw-bold -->
+    <h5 class="fw-semibold mb-3">Ex 7.1 — Display classes, lead, text-muted, fw-bold</h5>
+    <div class="bg-white border rounded-3 p-4 mb-4">
+      <p class="display-6 fw-bold" style="font-family:'Playfair Display',serif;">display-6: CivicPulse Portal</p>
+      <p class="lead">lead: Join thousands of residents who connect through local events.</p>
+      <p class="text-muted">text-muted: Events are subject to change. Check regularly for updates.</p>
+      <p class="fw-bold">fw-bold: Bold text for important announcements.</p>
+      <p class="fw-light fst-italic">fw-light fst-italic: Lightweight italic for captions and asides.</p>
+      <p class="fs-4">fs-4: Larger font-size utility class.</p>
+      <p class="fs-6 text-secondary">fs-6 text-secondary: Smaller secondary text.</p>
+    </div>
+
+    <!-- Ex 7.2: text-uppercase, text-lowercase, text-capitalize -->
+    <h5 class="fw-semibold mb-3">Ex 7.2 — text-uppercase, text-lowercase, text-capitalize</h5>
+    <div class="bg-white border rounded-3 p-4">
+      <p class="text-uppercase fw-semibold" style="color:var(--civic-navy);">text-uppercase: community event portal</p>
+      <p class="text-lowercase">TEXT-LOWERCASE: CITY MUSIC FESTIVAL</p>
+      <p class="text-capitalize">text-capitalize: welcome to civicpulse — your local portal</p>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 8: Forms
+       ============================================================== -->
+  <section id="forms" class="module-section">
+    <span class="ex-badge gold">Ex 8 — Forms</span>
+    <h2 class="mb-4">Bootstrap Form Components</h2>
+
+    <div class="row g-4">
+      <!-- Ex 8.1: Registration form — form-control, form-check, input-group -->
+      <div class="col-12 col-lg-6">
+        <h5 class="fw-semibold mb-3">Ex 8.1 — Registration Form (form-control, form-check, input-group)</h5>
+        <form class="bg-white border rounded-3 p-4">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Full Name</label>
+            <input type="text" class="form-control" placeholder="e.g. Priya Sharma">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Email</label>
+            <!-- input-group with icon -->
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+              <input type="email" class="form-control" placeholder="you@example.com">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Event Type</label>
+            <select class="form-select">
+              <option>— Select —</option>
+              <option>🎵 Music Festival</option>
+              <option>🎨 Art Workshop</option>
+              <option>🏃 Charity Run</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Date</label>
+            <input type="date" class="form-control">
+          </div>
+          <!-- form-check -->
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="agreeCheck">
+            <label class="form-check-label" for="agreeCheck">I agree to the terms &amp; conditions</label>
+          </div>
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="radio" name="notif" id="notifEmail" checked>
+            <label class="form-check-label" for="notifEmail">Notify me by email</label>
+          </div>
+          <button class="btn w-100 fw-semibold text-white" style="background:var(--civic-navy);">Register Now</button>
+        </form>
+      </div>
+
+      <!-- Ex 8.2: Login form — form-floating -->
+      <div class="col-12 col-lg-6">
+        <h5 class="fw-semibold mb-3">Ex 8.2 — Login Form (form-floating)</h5>
+        <form class="bg-white border rounded-3 p-4">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatEmail" placeholder="name@example.com">
+            <label for="floatEmail"><i class="bi bi-person me-1"></i>Email address</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatPassword" placeholder="Password">
+            <label for="floatPassword"><i class="bi bi-lock me-1"></i>Password</label>
+          </div>
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Remember me</label>
+          </div>
+          <button class="btn w-100 fw-semibold text-white" style="background:var(--civic-gold);">Sign In</button>
+          <p class="text-center text-muted small mt-3 mb-0">Don't have an account? <a href="#">Register free</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 9: Buttons
+       ============================================================== -->
+  <section id="buttons" class="module-section">
+    <span class="ex-badge moss">Ex 9 — Buttons</span>
+    <h2 class="mb-4">Button Variants &amp; Groups</h2>
+
+    <!-- Ex 9.1: All contextual classes + outline -->
+    <h5 class="fw-semibold mb-3">Ex 9.1 — Contextual &amp; Outline Buttons</h5>
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <button class="btn btn-primary">btn-primary</button>
+      <button class="btn btn-secondary">btn-secondary</button>
+      <button class="btn btn-success">btn-success</button>
+      <button class="btn btn-danger">btn-danger</button>
+      <button class="btn btn-warning">btn-warning</button>
+      <button class="btn btn-info">btn-info</button>
+      <button class="btn btn-light border">btn-light</button>
+      <button class="btn btn-dark">btn-dark</button>
+      <button class="btn btn-link">btn-link</button>
+    </div>
+    <div class="d-flex flex-wrap gap-2 mb-5">
+      <button class="btn btn-outline-primary">outline-primary</button>
+      <button class="btn btn-outline-secondary">outline-secondary</button>
+      <button class="btn btn-outline-success">outline-success</button>
+      <button class="btn btn-outline-danger">outline-danger</button>
+      <button class="btn btn-outline-warning">outline-warning</button>
+      <button class="btn btn-outline-info">outline-info</button>
+      <button class="btn btn-outline-dark">outline-dark</button>
+    </div>
+
+    <!-- Ex 9.2: btn-group + toggle checkboxes -->
+    <h5 class="fw-semibold mb-3">Ex 9.2 — Button Groups &amp; Toggle Checkboxes</h5>
+    <div class="btn-group me-3 mb-3" role="group">
+      <button class="btn btn-outline-primary">Previous</button>
+      <button class="btn btn-outline-primary">1</button>
+      <button class="btn btn-outline-primary">2</button>
+      <button class="btn btn-outline-primary">3</button>
+      <button class="btn btn-outline-primary">Next</button>
+    </div>
+
+    <!-- Toggle checkbox buttons -->
+    <div class="btn-group mb-3" role="group">
+      <input type="checkbox" class="btn-check" id="tog1" autocomplete="off">
+      <label class="btn btn-outline-success" for="tog1">🎵 Music</label>
+
+      <input type="checkbox" class="btn-check" id="tog2" autocomplete="off">
+      <label class="btn btn-outline-success" for="tog2">🍜 Food</label>
+
+      <input type="checkbox" class="btn-check" id="tog3" autocomplete="off">
+      <label class="btn btn-outline-success" for="tog3">🎨 Art</label>
+
+      <input type="checkbox" class="btn-check" id="tog4" autocomplete="off">
+      <label class="btn btn-outline-success" for="tog4">🏃 Sports</label>
+    </div>
+    <p class="text-muted small">^ Toggle buttons with btn-check checkboxes</p>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 10.2: Nav Tabs & Pills
+       ============================================================== -->
+  <section id="nav-tabs" class="module-section">
+    <span class="ex-badge">Ex 10.2 — Nav Tabs &amp; Pills</span>
+    <h2 class="mb-4">Tabbed Navigation</h2>
+
+    <!-- nav-tabs -->
+    <h5 class="fw-semibold mb-3">nav-tabs</h5>
+    <ul class="nav nav-tabs" id="eventTabs" role="tablist">
+      <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-all">All Events</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-music">🎵 Music</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-art">🎨 Art</button></li>
+    </ul>
+    <div class="tab-content mb-5">
+      <div class="tab-pane fade show active" id="tab-all"><p class="mb-0">Showing <strong>all</strong> community events — Music, Food, Art, Sports, Nature.</p></div>
+      <div class="tab-pane fade" id="tab-music"><p class="mb-0">🎵 <strong>City Music Festival</strong> — 15 Aug 2025 @ Central Park. Free entry.</p></div>
+      <div class="tab-pane fade" id="tab-art"><p class="mb-0">🎨 <strong>Art Workshop</strong> — 22 Aug 2025 @ Community Hall. Entry: ₹200.</p></div>
+    </div>
+
+    <!-- nav-pills -->
+    <h5 class="fw-semibold mb-3">nav-pills</h5>
+    <ul class="nav nav-pills mb-3" id="pillTabs" role="tablist">
+      <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#pill-upcoming">Upcoming</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#pill-past">Past</button></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="pill-upcoming"><p class="mb-0">📅 Upcoming events are listed here — filtered and ready.</p></div>
+      <div class="tab-pane fade" id="pill-past"><p class="mb-0">🗂 Past events archive — browse what happened in your community.</p></div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 11: Cards & Media Objects
+       ============================================================== -->
+  <section id="cards" class="module-section">
+    <span class="ex-badge gold">Ex 11 — Cards &amp; Media Objects</span>
+    <h2 class="mb-4">Cards &amp; Media Layout</h2>
+
+    <div class="row g-4">
+      <!-- Ex 11.1: Profile card with card-img-top -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <h6 class="fw-semibold mb-3">Ex 11.1 — Profile Card</h6>
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+          <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400&h=200&fit=crop"
+               class="card-img-top" alt="Music Festival">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">City Music Festival</h5>
+            <p class="card-text text-muted small">An open-air celebration of local music talent at Central Park.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-success rounded-pill">Free Entry</span>
+              <button class="btn btn-sm btn-primary">Register</button>
+            </div>
+          </div>
+          <div class="card-footer text-muted small bg-transparent border-0">
+            <i class="bi bi-calendar3 me-1"></i>15 Aug 2025 &nbsp;
+            <i class="bi bi-geo-alt me-1"></i>Central Park
+          </div>
+        </div>
+      </div>
+
+      <!-- Event card 2 -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <h6 class="fw-semibold mb-3">Another Card</h6>
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+          <img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=400&h=200&fit=crop"
+               class="card-img-top" alt="Art Workshop">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Art Workshop</h5>
+            <p class="card-text text-muted small">Hands-on painting and sculpting sessions for all skill levels.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge rounded-pill" style="background:var(--civic-gold);">₹200</span>
+              <button class="btn btn-sm btn-outline-primary">Register</button>
+            </div>
+          </div>
+          <div class="card-footer text-muted small bg-transparent border-0">
+            <i class="bi bi-calendar3 me-1"></i>22 Aug 2025 &nbsp;
+            <i class="bi bi-geo-alt me-1"></i>Community Hall
+          </div>
+        </div>
+      </div>
+
+      <!-- Ex 11.2: Media object layout -->
+      <div class="col-12 col-lg-4">
+        <h6 class="fw-semibold mb-3">Ex 11.2 — Media Object</h6>
+        <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+          <!-- Three media-style rows -->
+          <div class="d-flex gap-3 mb-3">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=80&h=80&fit=crop"
+                 class="rounded-3 flex-shrink-0" width="72" height="72" style="object-fit:cover;" alt="Run">
+            <div>
+              <h6 class="fw-bold mb-1">Charity 5K Run</h6>
+              <p class="text-muted small mb-0">5 Sep 2025 · Riverside Park · ₹500</p>
+            </div>
+          </div>
+          <div class="d-flex gap-3 mb-3">
+            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=80&h=80&fit=crop"
+                 class="rounded-3 flex-shrink-0" width="72" height="72" style="object-fit:cover;" alt="Food">
+            <div>
+              <h6 class="fw-bold mb-1">Food Festival</h6>
+              <p class="text-muted small mb-0">10 Oct 2025 · Exhibition Grounds · ₹350</p>
+            </div>
+          </div>
+          <div class="d-flex gap-3">
+            <img src="https://images.unsplash.com/photo-1519671282429-b44660ead0a7?w=80&h=80&fit=crop"
+                 class="rounded-3 flex-shrink-0" width="72" height="72" style="object-fit:cover;" alt="Trees">
+            <div>
+              <h6 class="fw-bold mb-1">Tree Plantation</h6>
+              <p class="text-muted small mb-0">21 Sep 2025 · Riverside Park · Free</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 12: Spacing Utilities
+       ============================================================== -->
+  <section id="spacing" class="module-section">
+    <span class="ex-badge moss">Ex 12 — Spacing Utilities</span>
+    <h2 class="mb-4">Margin &amp; Padding Utilities</h2>
+
+    <!-- Ex 12.1: m-*, mt-*, p-*, py-* -->
+    <h5 class="fw-semibold mb-3">Ex 12.1 — m-3, mt-4, p-2, py-5</h5>
+    <div class="bg-white border rounded-3 p-4 mb-4">
+      <div class="bg-primary text-white p-2 rounded mb-2 d-inline-block">p-2: tight padding</div><br>
+      <div class="bg-success text-white p-4 rounded mb-2 d-inline-block">p-4: comfortable padding</div><br>
+      <div class="bg-warning py-5 px-3 rounded mb-2 d-inline-block">py-5 px-3: large vertical, medium horizontal</div>
+      <p class="mt-4 mb-1 text-muted small">^ mt-4 margin-top applied above this text</p>
+      <p class="ms-5 text-muted small">^ ms-5 (margin-start / left) applied here</p>
+    </div>
+
+    <!-- Ex 12.2: Pricing section with spacing -->
+    <h5 class="fw-semibold mb-3">Ex 12.2 — Pricing Section</h5>
+    <div class="row g-4">
+      <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100">
+          <div class="card-body py-4">
+            <h5 class="fw-bold mb-3">Free</h5>
+            <p class="display-6 fw-bold mb-1">₹0</p>
+            <p class="text-muted small mb-4">per event</p>
+            <ul class="list-unstyled text-start mb-4">
+              <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Music Festival</li>
+              <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Farmers Market</li>
+              <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Tree Plantation</li>
+            </ul>
+            <button class="btn btn-outline-primary w-100 rounded-pill">Join Free</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card border-0 rounded-4 text-center p-4 h-100 text-white" style="background:var(--civic-navy);">
+          <div class="card-body py-4">
+            <span class="badge bg-warning text-dark mb-3">Most Popular</span>
+            <h5 class="fw-bold mb-3">Standard</h5>
+            <p class="display-6 fw-bold mb-1">₹350</p>
+            <p class="opacity-75 small mb-4">per event</p>
+            <ul class="list-unstyled text-start mb-4">
+              <li class="py-1"><i class="bi bi-check-circle-fill text-warning me-2"></i>Food Festival</li>
+              <li class="py-1"><i class="bi bi-check-circle-fill text-warning me-2"></i>Art Workshop (₹200)</li>
+              <li class="py-1"><i class="bi bi-check-circle-fill text-warning me-2"></i>Priority Access</li>
+            </ul>
+            <button class="btn btn-warning w-100 rounded-pill fw-semibold">Register Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100">
+          <div class="card-body py-4">
+            <h5 class="fw-bold mb-3">Premium</h5>
+            <p class="display-6 fw-bold mb-1">₹500</p>
+            <p class="text-muted small mb-4">per event</p>
+            <ul class="list-unstyled text-start mb-4">
+              <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Charity 5K Run</li>
+              <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>T-Shirt Included</li>
+              <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Finisher Medal</li>
+            </ul>
+            <button class="btn btn-outline-dark w-100 rounded-pill">Select Plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 13: Colors & Backgrounds
+       ============================================================== -->
+  <section id="colors" class="module-section">
+    <span class="ex-badge">Ex 13 — Colors &amp; Backgrounds</span>
+    <h2 class="mb-4">Dashboard Color Utilities</h2>
+
+    <!-- Ex 13.1: Contextual bg-* and text colors -->
+    <h5 class="fw-semibold mb-3">Ex 13.1 — Contextual Background &amp; Text Classes</h5>
+    <div class="row g-3 mb-5">
+      <div class="col-6 col-md-3"><div class="p-3 bg-primary text-white rounded-3 text-center fw-semibold">bg-primary</div></div>
+      <div class="col-6 col-md-3"><div class="p-3 bg-success text-white rounded-3 text-center fw-semibold">bg-success</div></div>
+      <div class="col-6 col-md-3"><div class="p-3 bg-warning text-dark rounded-3 text-center fw-semibold">bg-warning</div></div>
+      <div class="col-6 col-md-3"><div class="p-3 bg-danger text-white rounded-3 text-center fw-semibold">bg-danger</div></div>
+      <div class="col-6 col-md-3"><div class="p-3 bg-info text-dark rounded-3 text-center fw-semibold">bg-info</div></div>
+      <div class="col-6 col-md-3"><div class="p-3 bg-secondary text-white rounded-3 text-center fw-semibold">bg-secondary</div></div>
+      <div class="col-6 col-md-3"><div class="p-3 bg-light border rounded-3 text-center fw-semibold">bg-light</div></div>
+      <div class="col-6 col-md-3"><div class="p-3 bg-dark text-white rounded-3 text-center fw-semibold">bg-dark</div></div>
+    </div>
+
+    <!-- Dashboard stat cards -->
+    <div class="row g-3 mb-5">
+      <div class="col-6 col-lg-3">
+        <div class="dash-card card bg-primary text-white p-4">
+          <i class="bi bi-calendar-event fs-2 mb-2"></i>
+          <p class="fs-4 fw-bold mb-0">24</p>
+          <small class="opacity-75">Upcoming Events</small>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="dash-card card bg-success text-white p-4">
+          <i class="bi bi-people fs-2 mb-2"></i>
+          <p class="fs-4 fw-bold mb-0">1,842</p>
+          <small class="opacity-75">Registered Users</small>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="dash-card card bg-warning text-dark p-4">
+          <i class="bi bi-ticket-perforated fs-2 mb-2"></i>
+          <p class="fs-4 fw-bold mb-0">376</p>
+          <small>Available Seats</small>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="dash-card card bg-danger text-white p-4">
+          <i class="bi bi-star fs-2 mb-2"></i>
+          <p class="fs-4 fw-bold mb-0">4.8★</p>
+          <small class="opacity-75">Average Rating</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 13.2: bg-gradient + bg-dark + white text -->
+    <h5 class="fw-semibold mb-3">Ex 13.2 — bg-gradient with bg-dark &amp; white text</h5>
+    <div class="p-4 rounded-3 bg-dark bg-gradient text-white text-center">
+      <h4 class="fw-bold mb-1" style="font-family:'Playfair Display',serif;">bg-dark bg-gradient</h4>
+      <p class="mb-0 opacity-75">Dark gradient background with white text for dramatic effect.</p>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 14: Display & Visibility
+       ============================================================== -->
+  <section id="display" class="module-section">
+    <span class="ex-badge gold">Ex 14 — Display &amp; Visibility</span>
+    <h2 class="mb-4">Responsive Display Utilities</h2>
+
+    <!-- Ex 14.1: d-none d-md-block d-lg-flex -->
+    <h5 class="fw-semibold mb-3">Ex 14.1 — d-none, d-md-block, d-lg-flex</h5>
+    <div class="mb-4 p-3 bg-white border rounded-3">
+      <div class="alert alert-danger d-md-none mb-2">📱 Visible on mobile only (d-md-none)</div>
+      <div class="alert alert-success d-none d-md-block d-lg-none mb-2">💻 Visible on tablet only (d-none d-md-block d-lg-none)</div>
+      <div class="alert alert-primary d-none d-lg-flex align-items-center gap-2 mb-0">
+        <i class="bi bi-display fs-5"></i> Visible on desktop only (d-none d-lg-flex)
+      </div>
+    </div>
+
+    <!-- Ex 14.2: Responsive sidebar d-none d-md-block -->
+    <h5 class="fw-semibold mb-3">Ex 14.2 — Sidebar visible on tablet+ (d-none d-md-block)</h5>
+    <div class="row g-3">
+      <div class="col-md-3 d-none d-md-block">
+        <div class="p-3 rounded-3 h-100" style="background:#e8f0f9; border:2px solid var(--civic-navy);">
+          <p class="fw-bold mb-2" style="color:var(--civic-navy);">
+            <i class="bi bi-layout-sidebar me-1"></i>Sidebar
+          </p>
+          <p class="small text-muted mb-0">This sidebar is hidden on mobile and visible on tablet+ using <code>d-none d-md-block</code>.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-9">
+        <div class="p-3 rounded-3 bg-white border">
+          <p class="fw-semibold mb-1">Main content — always visible</p>
+          <p class="text-muted small mb-0">The sidebar to the left only appears on medium screens and above. Resize the window to see the effect.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 15: Borders, Shadows & Rounded Corners
+       ============================================================== -->
+  <section id="borders" class="module-section">
+    <span class="ex-badge moss">Ex 15 — Borders, Shadows &amp; Rounded Corners</span>
+    <h2 class="mb-4">Border &amp; Shadow Utilities</h2>
+
+    <!-- Ex 15.1: border utilities on images -->
+    <h5 class="fw-semibold mb-3">Ex 15.1 — border, border-primary, border-3, rounded-circle on images</h5>
+    <div class="d-flex flex-wrap gap-4 align-items-center mb-5">
+      <div class="text-center">
+        <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=110&h=110&fit=crop"
+             class="profile-img-demo border border-primary border-3 rounded-circle" alt="Music">
+        <p class="small mt-2 text-muted">border-primary border-3<br>rounded-circle</p>
+      </div>
+      <div class="text-center">
+        <img src="https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?w=110&h=110&fit=crop"
+             class="profile-img-demo border border-success border-3 rounded" alt="Market">
+        <p class="small mt-2 text-muted">border-success border-3<br>rounded</p>
+      </div>
+      <div class="text-center">
+        <img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=110&h=110&fit=crop"
+             class="profile-img-demo border border-warning border-3 rounded-4" alt="Art">
+        <p class="small mt-2 text-muted">border-warning border-3<br>rounded-4</p>
+      </div>
+      <div class="text-center">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=110&h=110&fit=crop"
+             class="profile-img-demo border border-danger border-3 rounded-0" alt="Run">
+        <p class="small mt-2 text-muted">border-danger border-3<br>rounded-0</p>
+      </div>
+    </div>
+
+    <!-- Ex 15.2: shadow, shadow-lg, rounded-pill on cards -->
+    <h5 class="fw-semibold mb-3">Ex 15.2 — shadow, shadow-lg, rounded-pill in cards</h5>
+    <div class="row g-4">
+      <div class="col-12 col-md-4">
+        <div class="card border-0 shadow rounded-3 p-3 text-center">
+          <h6 class="fw-bold mb-1">shadow</h6>
+          <p class="text-muted small mb-2">Regular shadow + rounded-3</p>
+          <button class="btn btn-outline-primary btn-sm rounded-pill px-4">rounded-pill button</button>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-lg rounded-4 p-3 text-center">
+          <h6 class="fw-bold mb-1">shadow-lg</h6>
+          <p class="text-muted small mb-2">Large shadow + rounded-4</p>
+          <button class="btn btn-primary btn-sm rounded-pill px-4">rounded-pill button</button>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm rounded-pill p-3 text-center">
+          <h6 class="fw-bold mb-1">shadow-sm</h6>
+          <p class="text-muted small mb-2">Small shadow + rounded-pill card</p>
+          <button class="btn btn-success btn-sm rounded-pill px-4">rounded-pill button</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 16: Positioning Utilities
+       ============================================================== -->
+  <section id="positioning" class="module-section">
+    <span class="ex-badge">Ex 16 — Positioning</span>
+    <h2 class="mb-4">Position Utilities</h2>
+
+    <!-- Ex 16.1: Fixed footer note (actual fixed footer at bottom of page) -->
+    <div class="alert alert-info mb-4">
+      <i class="bi bi-info-circle me-2"></i>
+      <strong>Ex 16.1:</strong> The fixed footer at the very bottom of this page uses
+      <code>position-fixed bottom-0 w-100</code>.
+    </div>
+
+    <!-- Ex 16.2: position-relative + position-absolute badge over image -->
+    <h5 class="fw-semibold mb-3">Ex 16.2 — position-relative + position-absolute badge overlay</h5>
+    <div class="d-flex flex-wrap gap-4">
+      <div class="position-relative d-inline-block">
+        <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=240&h=160&fit=crop"
+             class="badge-overlay-img" alt="Music Festival">
+        <span class="position-absolute top-0 start-0 m-2 badge bg-success rounded-pill">Free</span>
+        <span class="position-absolute bottom-0 end-0 m-2 badge bg-dark rounded-pill">🎵 Music</span>
+      </div>
+      <div class="position-relative d-inline-block">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=240&h=160&fit=crop"
+             class="badge-overlay-img" alt="Run">
+        <span class="position-absolute top-0 end-0 m-2 badge bg-danger rounded-pill">₹500</span>
+        <span class="position-absolute bottom-0 start-0 m-2 badge bg-warning text-dark rounded-pill">🏃 Sports</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 17: Bootstrap Icons
+       ============================================================== -->
+  <section id="icons" class="module-section">
+    <span class="ex-badge gold">Ex 17 — Bootstrap Icons</span>
+    <h2 class="mb-4">Icons in UI</h2>
+
+    <!-- Ex 17.1: Social media icons in footer-style strip -->
+    <h5 class="fw-semibold mb-3">Ex 17.1 — Social Media Icons</h5>
+    <div class="d-flex gap-3 align-items-center flex-wrap mb-5">
+      <a href="#" class="btn btn-outline-primary rounded-circle p-2" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;">
+        <i class="bi bi-twitter-x"></i>
+      </a>
+      <a href="#" class="btn btn-outline-primary rounded-circle p-2" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;">
+        <i class="bi bi-facebook"></i>
+      </a>
+      <a href="#" class="btn btn-outline-danger rounded-circle p-2" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;">
+        <i class="bi bi-instagram"></i>
+      </a>
+      <a href="#" class="btn btn-outline-secondary rounded-circle p-2" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;">
+        <i class="bi bi-github"></i>
+      </a>
+      <a href="#" class="btn btn-outline-info rounded-circle p-2" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;">
+        <i class="bi bi-linkedin"></i>
+      </a>
+      <a href="#" class="btn btn-outline-danger rounded-circle p-2" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;">
+        <i class="bi bi-youtube"></i>
+      </a>
+    </div>
+
+    <!-- Ex 17.2: Icon-only buttons replacing text buttons -->
+    <h5 class="fw-semibold mb-3">Ex 17.2 — Icon-only Buttons</h5>
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn btn-primary" title="Register"><i class="bi bi-person-check-fill"></i></button>
+      <button class="btn btn-success" title="Confirm"><i class="bi bi-check-circle-fill"></i></button>
+      <button class="btn btn-warning" title="Edit"><i class="bi bi-pencil-fill"></i></button>
+      <button class="btn btn-danger" title="Delete"><i class="bi bi-trash-fill"></i></button>
+      <button class="btn btn-info" title="Info"><i class="bi bi-info-circle-fill"></i></button>
+      <button class="btn btn-secondary" title="Share"><i class="bi bi-share-fill"></i></button>
+      <button class="btn btn-dark" title="Download"><i class="bi bi-download"></i></button>
+      <button class="btn btn-outline-primary" title="Search"><i class="bi bi-search"></i></button>
+    </div>
+    <p class="text-muted small mt-2">Hover over each icon button to see its tooltip title.</p>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 18: Bootstrap 5 JavaScript Plugins
+       ============================================================== -->
+  <section id="plugins" class="module-section">
+    <span class="ex-badge moss">Ex 18 — JS Plugins</span>
+    <h2 class="mb-4">Modal &amp; Accordion</h2>
+
+    <!-- Ex 18.1: Modal triggered by button -->
+    <h5 class="fw-semibold mb-3">Ex 18.1 — Modal Popup</h5>
+    <button class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#regModal">
+      <i class="bi bi-box-arrow-in-right me-2"></i>Open Registration Modal
+    </button>
+
+    <!-- Modal markup -->
+    <div class="modal fade" id="regModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+          <div class="modal-header border-0 pb-0" style="background:var(--civic-navy); color:#fff; border-radius:16px 16px 0 0;">
+            <h5 class="modal-title fw-bold">
+              <i class="bi bi-calendar-check me-2"></i>Quick Registration
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body pt-4">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Your Name</label>
+              <input type="text" class="form-control" placeholder="e.g. Priya Sharma">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Email</label>
+              <input type="email" class="form-control" placeholder="you@example.com">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Choose Event</label>
+              <select class="form-select">
+                <option>🎵 City Music Festival</option>
+                <option>🎨 Art Workshop</option>
+                <option>🏃 Charity 5K Run</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-success fw-semibold">
+              <i class="bi bi-check2-circle me-1"></i>Confirm Registration
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 18.2: Accordion -->
+    <h5 class="fw-semibold mb-3">Ex 18.2 — Accordion (collapsible)</h5>
+    <div class="accordion rounded-3 overflow-hidden shadow-sm" id="eventAccordion">
+      <div class="accordion-item border-0 border-bottom">
+        <h2 class="accordion-header">
+          <button class="accordion-button fw-semibold" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#acc1">
+            <i class="bi bi-music-note-beamed me-2 text-primary"></i>City Music Festival — 15 Aug 2025
+          </button>
+        </h2>
+        <div id="acc1" class="accordion-collapse collapse show" data-bs-parent="#eventAccordion">
+          <div class="accordion-body text-muted">
+            An open-air celebration of local music talent at Central Park. Free entry for all residents. Bring your family and enjoy a day of live performances, food stalls, and activities for children.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item border-0 border-bottom">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed fw-semibold" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#acc2">
+            <i class="bi bi-palette me-2 text-warning"></i>Art Workshop — 22 Aug 2025
+          </button>
+        </h2>
+        <div id="acc2" class="accordion-collapse collapse" data-bs-parent="#eventAccordion">
+          <div class="accordion-body text-muted">
+            Hands-on painting and sculpting sessions for all skill levels. Materials provided. Entry fee: ₹200. Limited seats available — register early to secure your spot.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item border-0">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed fw-semibold" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#acc3">
+            <i class="bi bi-person-running me-2 text-success"></i>Charity 5K Run — 5 Sep 2025
+          </button>
+        </h2>
+        <div id="acc3" class="accordion-collapse collapse" data-bs-parent="#eventAccordion">
+          <div class="accordion-body text-muted">
+            Join the annual charity run at Riverside Park. Entry fee: ₹500 — all proceeds go to the city's green spaces fund. T-shirt and finisher medal included for all participants.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 19: Customization with Sass
+       ============================================================== -->
+  <section id="sass" class="module-section">
+    <span class="ex-badge rust">Ex 19 — Sass Customization</span>
+    <h2 class="mb-4">Customizing Bootstrap with Sass</h2>
+
+    <!-- Ex 19.1: Setup note -->
+    <h5 class="fw-semibold mb-3">Ex 19.1 — Setup Bootstrap 5 with Sass via npm</h5>
+    <div class="sass-code mb-4">
+      <div><span class="cmt"># 1. Install Bootstrap and Sass</span></div>
+      <div><span class="var">npm</span> init -y</div>
+      <div><span class="var">npm</span> install bootstrap @popperjs/core</div>
+      <div><span class="var">npm</span> install --save-dev sass</div>
+      <br>
+      <div><span class="cmt"># 2. Project structure</span></div>
+      <div>scss/</div>
+      <div>&nbsp;&nbsp;├── <span class="val">_variables.scss</span>   <span class="cmt">// your overrides</span></div>
+      <div>&nbsp;&nbsp;└── <span class="val">main.scss</span>          <span class="cmt">// entry point</span></div>
+      <br>
+      <div><span class="cmt"># 3. Compile</span></div>
+      <div><span class="var">npx</span> sass scss/main.scss dist/css/main.css --watch</div>
+    </div>
+
+    <!-- Ex 19.2: _variables.scss customization -->
+    <h5 class="fw-semibold mb-3">Ex 19.2 — _variables.scss — override primary color &amp; border-radius</h5>
+    <div class="sass-code mb-4">
+      <div><span class="cmt">// _variables.scss — Override BEFORE importing Bootstrap</span></div>
+      <br>
+      <div><span class="var">$primary</span>:            <span class="val">#1a3a5c</span>;   <span class="cmt">// Civic navy replaces Bootstrap blue</span></div>
+      <div><span class="var">$secondary</span>:          <span class="val">#c8952a</span>;   <span class="cmt">// Civic gold</span></div>
+      <div><span class="var">$success</span>:            <span class="val">#3b5e3a</span>;   <span class="cmt">// Civic moss green</span></div>
+      <div><span class="var">$border-radius</span>:      <span class="val">10px</span>;      <span class="cmt">// Softer corners globally</span></div>
+      <div><span class="var">$border-radius-lg</span>:   <span class="val">16px</span>;      <span class="cmt">// Larger radius for cards/modals</span></div>
+      <div><span class="var">$font-family-base</span>:   <span class="val">'DM Sans', sans-serif</span>;</div>
+      <div><span class="var">$headings-font-family</span>: <span class="val">'Playfair Display', serif</span>;</div>
+      <br>
+      <div><span class="cmt">// main.scss — import variables THEN Bootstrap</span></div>
+      <div><span class="var">@import</span> <span class="val">'variables'</span>;</div>
+      <div><span class="var">@import</span> <span class="val">'../../node_modules/bootstrap/scss/bootstrap'</span>;</div>
+    </div>
+
+    <div class="alert alert-success d-flex align-items-start gap-3">
+      <i class="bi bi-check-circle-fill fs-5 mt-1"></i>
+      <div>
+        <strong>Result:</strong> After recompiling, every Bootstrap component — buttons, alerts, cards, badges — automatically uses your custom colors and border radii. No need to override individual CSS classes.
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       EXERCISE 2.1: Bootstrap directory structure note
+       ============================================================== -->
+  <section id="structure" class="module-section">
+    <span class="ex-badge">Ex 1.2 &amp; 2.1 — Bootstrap Files</span>
+    <h2 class="mb-4">Bootstrap Directory Structure</h2>
+
+    <div class="row g-4">
+      <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+          <i class="bi bi-filetype-css fs-2 text-primary mb-3"></i>
+          <h6 class="fw-bold">css/</h6>
+          <p class="text-muted small mb-0">
+            <code>bootstrap.min.css</code> — compiled minified stylesheet.<br>
+            <code>bootstrap.css</code> — readable source.<br>
+            <code>bootstrap-grid.css</code> — grid-only build.<br>
+            <code>bootstrap-reboot.css</code> — reset-only build.<br>
+            <code>bootstrap-utilities.css</code> — utilities only.
+          </p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+          <i class="bi bi-filetype-js fs-2 text-warning mb-3"></i>
+          <h6 class="fw-bold">js/</h6>
+          <p class="text-muted small mb-0">
+            <code>bootstrap.bundle.min.js</code> — JS + Popper bundled (use this).<br>
+            <code>bootstrap.min.js</code> — Bootstrap JS only (Popper separate).<br>
+            <code>bootstrap.esm.js</code> — ES module version.<br>
+            Each plugin also available standalone.
+          </p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+          <i class="bi bi-type fs-2 text-success mb-3"></i>
+          <h6 class="fw-bold">icons/</h6>
+          <p class="text-muted small mb-0">
+            Separate package: <code>bootstrap-icons</code>.<br>
+            Installed via CDN or npm.<br>
+            Over 2,000 SVG icons.<br>
+            Used as <code>&lt;i class="bi bi-*"&gt;</code>.<br>
+            Font and SVG sprite variants available.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ==============================================================
+     EXERCISE 16.1: Fixed footer (position-fixed bottom-0)
+     + EXERCISE 17.1: Social icons in footer
+     ============================================================== -->
+<footer class="position-fixed bottom-0 w-100 py-2 px-4 d-flex justify-content-between align-items-center flex-wrap gap-2"
+        style="background:var(--civic-navy); color:#aaa; font-size:.8rem; z-index:999;">
+  <span>© 2025 CivicPulse — Bootstrap 5 Module &nbsp;|&nbsp; Ex 16.1: position-fixed bottom-0</span>
+  <div class="d-flex gap-3">
+    <a href="#" class="text-white opacity-75"><i class="bi bi-twitter-x"></i></a>
+    <a href="#" class="text-white opacity-75"><i class="bi bi-facebook"></i></a>
+    <a href="#" class="text-white opacity-75"><i class="bi bi-instagram"></i></a>
+    <a href="#" class="text-white opacity-75"><i class="bi bi-linkedin"></i></a>
+  </div>
+</footer>
+
+<!-- Spacer so content not hidden behind fixed footer -->
+<div style="height:60px;"></div>
+
+<!-- Ex 1.1 & 2.2: Bootstrap 5 JS bundle (includes Popper) via CDN -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
